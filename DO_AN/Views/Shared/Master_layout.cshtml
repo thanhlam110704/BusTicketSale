@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-utilities.rtl.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-utilities.css" />
+
 </head>
 <body>
     <div style="background-color:dodgerblue ; height:80px">
@@ -33,19 +34,37 @@
         </div>
     </div>
     <div class="leader-board">
-        <div class="container">
-
+        <div class="container search">
             <div class="row">
-                <div class="col-3 bg-black">
-                    ádasd
+                <div class="col-3">
+                    
                 </div>
-                <div class="col-6 bg-danger">
+                <div class="col-6">
                     <div class="row">
                         <div class="col-5 noidi">
-                            ád
+                            <select class="select-diadiem-noidi">
+                                <option value="HN">Ha Noi</option>
+                                <option value="TPHCM">TPHCM</option>
+                                <option value="Da Nang">Da Nang</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                            </select>
                         </div>
                         <div class="col-5 noiden">
-                            ádasd
+                            <select class="select-diadiem-noiden">
+                                <option value="HN">Ha Noi</option>
+                                <option value="TPHCM">TPHCM</option>
+                                <option value="Da Nang">Da Nang</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                                <option value="HN">Ha Noi</option>
+                            </select>
                         </div>
                         <div class="col-2 timve">
                             tim ve
@@ -58,7 +77,60 @@
             </div>
         </div>
     </div>
-        
+    @* <div class="leader-board">
+        <div class="container search">
+            <div class="row">
+                <div class="col-3">
+                </div>
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-5 noidi">
+                            <div class="dropdown">
+                                <div class="select">
+                                    <span class="selected">
+                                        Nơi đi
+                                    </span>
+                                    <div class="caret"></div>
+                                </div>
+                                    <ul class="menu">
+                                        <li class="active">Hà Nội</li>
+                                        <li>TPHCM</li>
+                                        <li>Đà Nẵng</li>
+                                        <li>Đà Lạt</li>
+                                        <li>Đà Lạt</li>
+                                        <li>Đà Lạt</li>
+                                    </ul>
+                            </div>
+                        </div>
+                        <div class="col-5 noiden">
+                            <div class="dropdown">
+                                <div class="select">
+                                    <span class="selected">
+                                        Nơi đi
+                                    </span>
+                                    <div class="caret"></div>
+                                </div>
+                                <ul class="menu">
+                                    <li class="active">Hà Nội</li>
+                                    <li>TPHCM</li>
+                                    <li>Đà Nẵng</li>
+                                    <li>Đà Lạt</li>
+                                    <li>Đà Lạt</li>
+                                    <li>Đà Lạt</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-2 timve">
+                            tim ve
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    
+                </div>
+            </div>
+        </div>
+    </div> *@
     <div style="height:500px">
         @RenderBody()
     </div>
@@ -219,5 +291,7 @@
             </div>
             
         </footer>
+     <script src="~/lib/bootstrap/js/bootstrap.js"></script> 
+     <script src="~/lib/bootstrap/js/bootstrap.js"></script> 
 </body>
 </html>
