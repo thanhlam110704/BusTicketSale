@@ -52,12 +52,13 @@
     background-image: url(../public/leaderboard-1@2x.png);
     height: 450px;
     background-size: cover;
+    align-content: center;
     /* additional style */
-/*    position: relative;*/
+    /*    position: relative;*/
 }
 .search{
     height:450px;
-    align-content:center;
+    margin-top:80px;
     
 }
 .select-diadiem-noidi {
@@ -66,6 +67,7 @@
     height: 54px;
     border-radius: 10px;
     padding: 5px;
+    font-size: 14px;
 }
 .select-diadiem-noiden {
     margin: 0;
@@ -73,7 +75,7 @@
     height: 54px;
     border-radius: 10px;
     padding: 5px;
-
+    font-size: 14px;
 }
 /*.dropdown{
     min-width:15em;
@@ -156,3 +158,25 @@ menu li:hover{
     display:block;
     opacity:1;
 }*/
+.text-diadiem {
+    margin-left: 10px;
+    position: relative;
+    color: yellow;
+    cursor: pointer;
+    font-size: 14px;
+}
+.timve {
+    text-align: center;
+    font-family:'Times New Roman';
+    cursor: pointer;
+    font-weight:500;
+    font-size:18px;
+}
+.title{
+    text-align:center;  
+    margin-top:80px;
+    font-size:30px;
+    color:white;
+    font-weight:500;
+}
+
