@@ -1,8 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using DO_AN.Models;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+//builder.Services.AddDbContext<DataContext>(opts =>
+//{
+//    opts.UseSqlServer(
+//    builder.Configuration["ConnectionStrings:DoAnConnection"]);
+//});
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

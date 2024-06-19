@@ -1,7 +1,6 @@
 ﻿using DO_AN.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-
 namespace DO_AN.Controllers
 {
     public class HomeController : Controller
