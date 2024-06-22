@@ -1,0 +1,79 @@
+﻿@* @model DO_AN.ViewModel.RegisterVM
+<div class="limiter">
+    <div class="container-login100">
+        <div class="wrap-login100">
+            <div class="login100-pic js-tilt" data-tilt="" style="will-change: transform; transform: perspective(300px) rotateX(0deg) rotateY(0deg);">
+                <img src="~/public/img-01.webp" alt="IMG">
+            </div>
+            @using (Html.BeginForm("Register", "Access", FormMethod.Post))
+            {
+                
+                <form class="login100-form validate-form">
+                    <span class="login100-form-title">
+                        Member Login
+                    </span>
+                    @{
+                        if (ViewBag.Status != null)
+                        {
+                            if(ViewBag.Status == 1)
+                            {
+                                <p class="color:green">Register succeed</p>
+                            }
+                            else if (ViewBag.Status == 0)
+                            {
+                                <p class="lg-failed">Register failed</p>
+                            }
+                        }
+                    }
+                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        @Html.TextBoxFor(x => x.Email, new { @class = "input100", type = "text", name = "email", placeholder = "Email", required = "required", autofocus = "autofocus" })
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        @Html.PasswordFor(x => x.Password, new { @class = "input100", type = "password", name = "password", placeholder = "Password", required = "required", autofocus = "autofocus" })
+                        
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        @Html.PasswordFor(x => x.Cf_Password, new { @class = "input100", type = "password", name = "cf_password", placeholder = "Confirm Password", required = "required", autofocus = "autofocus" })
+                        
+                        <span class="focus-input100"></span>
+
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        @Html.TextBoxFor(x => x.Phone, new { @class = "input100", type = "text", name = "phone", placeholder = "Phone number", autofocus = "autofocus" })
+                        <span class="focus-input100"></span>
+                    </div>
+                    <div class="wrap-input100 validate-input">
+                        @Html.TextBoxFor(x => x.DateOfBirth, new { @style ="padding-right:10px" ,@class = "input100", type = "date", name = "birthDay", placeholder = "Date Of Birth", autofocus = "autofocus" })
+                    </div>
+
+                    <div class="wrap-input100 validate-input">
+                        <select class="wrap-input100 form-control">
+                            <option value="0">Nữ</option>
+                            <option value="1">Nam</option>
+                        </select>
+                    </div>
+                        
+                    <div class="container-login100-form-btn">
+                        <button class="login100-form-btn">
+                            Register
+                        </button>
+                    </div>
+                    <div class="text-center p-t-12">
+                        <span class="txt1">
+                            Forgot
+                        </span>
+                        <a class="txt2" href="#">
+                            Username / Password?
+                        </a>
+                    </div>
+
+                    
+                </form>
+            }
+        </div>
+    </div>
+</div>
+
+
+ *@

@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
-
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    var httpContext = HttpContextAccessor.HttpContext;
+    var Email = httpContext.Session.GetString("UserSession"); // Thay "UserName" bằng key session mà bạn muốn lấy
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -8,299 +12,126 @@
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-utilities.rtl.min.css" />
     <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap-utilities.css" />
+    <link rel="stylesheet" href="~/css/access.css" />
 
 </head>
 <body>
-    <div style="background-color:dodgerblue ; height:80px">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
+    <div style="background-color:dodgerblue ; height:98px">
+        <div class="container-fluid">
+            <div class="row"style="align-items:center">
+                <div class="col-2">
                     <img src="~/public/icon-vxr-full-2-1@2x.png" />
                 </div>
-                <div class="col-3"></div>
+                
+                <div class="col-3 py-3">
+                    <p style="text-decoration:none" class="lg-a">
+                        Cam kết hoàn 150% nếu nhà xe
+                        không cung cấp dịch vụ vận chuyển (*)
+                    </p>
+                </div>
+                <div class="col-1"></div>
                 <div style="color:white ;text-align:center" class="col-1 py-4">
-                    Trang chủ
+                    <a style="text-decoration:none" class="lg-a">Đơn hàng của tôi</a>
                 </div>
-                <div  style="color:white;text-align:center" class="col-1 py-4">
-                    Liên hệ
+                <div style="color:white ;text-align:center" class="col-1">
+                    <a style="text-decoration:none" class="lg-a">Trang chủ</a>
                 </div>
-                <div  style="color:white;text-align:center" class="col-1 py-4">
-                    Đăng kí
+                <div  style="color:white;text-align:center" class="col-1 py-4 px-sm-0">
+                    <a href="/Access/Register" style="text-decoration:none" class="lg-a">Liên hệ</a>
                 </div>
-                <div  style="color:white;text-align:center" class="col-1 py-4">
-                    Đăng nhập
-                </div>
+                
+                @if (!string.IsNullOrEmpty(Email))
+                {
+                    <div style="color:white;text-align:center" class="col-3 py-4">
+                        <a style="text-decoration:none;margin-left:-20px" class="lg-a">Xin chào @ViewBag.MySession</a>
+                        <a asp-action="Logout" asp-controller="Access" style="text-decoration:none" class="lg-a">Đăng xuất</a>
+                    </div>
+                }
+                else
+                {
+                   <div class="col-1">
+
+                   </div>
+                   <div class="col-2 py-4 lg-box">
+                        <a style="position:absolute;bottom:25%;text-decoration:none;color:black" class="lg-a" href="/Access/Login">Đăng nhập</a>
+                   </div>
+                }
             </div>
         </div>
     </div>
-    <div class="leader-board">
-        <div class="title">
-            Vexere - Cam kết hoàn 150% nếu nhà xe không cung cấp dịch vụ vận chuyển
-        </div>
-        <div class="container search">
-            
-            <div class="row">
-                <div class="col-3">
-                    
-                </div>
-                <div class="col-6">
-                    <div class="row">
-                        
-                        <div class="col-5 noidi">
-                            <div class="text-diadiem">Nơi Đi</div>
-                            <select class="select-diadiem-noidi">
-                                <option value="HN">Hà Nội</option>
-                                <option value="TPHCM">TPHCM</option>
-                                <option value="DaNang">Đà Nẵng</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                            </select>
-                        </div>
-                        
-                        <div class="col-5 noiden">
-                            <div class="text-diadiem">Nơi Đến</div>
-                            <select class="select-diadiem-noiden">
-                                <option value="HN">Ha Noi</option>
-                                <option value="TPHCM">TPHCM</option>
-                                <option value="Da Nang">Da Nang</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                                <option value="HN">Ha Noi</option>
-                            </select>
-                        </div>
-                        <div class="col-2 btn btn-warning"style="height:50px;margin-top:22px;align-content:center;border-radius:10px">
-                            <div class="timve">
-                                Tìm kiếm
-                            </div>
-                            
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    @* <div class="leader-board">
-        <div class="container search">
-            <div class="row">
-                <div class="col-3">
-                </div>
-                <div class="col-6">
-                    <div class="row">
-                        <div class="col-5 noidi">
-                            <div class="dropdown">
-                                <div class="select">
-                                    <span class="selected">
-                                        Nơi đi
-                                    </span>
-                                    <div class="caret"></div>
-                                </div>
-                                    <ul class="menu">
-                                        <li class="active">Hà Nội</li>
-                                        <li>TPHCM</li>
-                                        <li>Đà Nẵng</li>
-                                        <li>Đà Lạt</li>
-                                        <li>Đà Lạt</li>
-                                        <li>Đà Lạt</li>
-                                    </ul>
-                            </div>
-                        </div>
-                        <div class="col-5 noiden">
-                            <div class="dropdown">
-                                <div class="select">
-                                    <span class="selected">
-                                        Nơi đi
-                                    </span>
-                                    <div class="caret"></div>
-                                </div>
-                                <ul class="menu">
-                                    <li class="active">Hà Nội</li>
-                                    <li>TPHCM</li>
-                                    <li>Đà Nẵng</li>
-                                    <li>Đà Lạt</li>
-                                    <li>Đà Lạt</li>
-                                    <li>Đà Lạt</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-2 timve">
-                            tim ve
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    
-                </div>
-            </div>
-        </div>
-    </div> *@
     <div>
         @RenderBody()
     </div>
-
-
-    <h4 class="title-4"style="text-align:center">HỆ THỐNG VÉ XE KHÁCH LỚN NHẤT VIỆT NAM</h4>
-    <br />
-    <br />
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="shadow">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="~/public/world-map@2x.png" />
-                        </div>
-                        <div class="col-8 fs-5">
-                            <h6 class="mt-2  fw-bolder ">5000+</h6>
-                            <a>Tuyến đường</a>
-                        </div>
-                    </div>
+    <footer class="bg-dark text-white py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="footer-heading text-primary">Limosine VIP các tỉnh</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#" class="footer-item">Email: quangcongvan2004@gmail.com</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Số điện thoại: 0767050128</a>
+                        </li>
+                        <li>
+                            <span><br />Hãy liên hệ cho chúng tôi để được hỗ trợ</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="footer-heading">Về chúng tôi</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#" class="footer-item">Phần mềm đại lý</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Giới thiệu vexere.com</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Tuyển dụng</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Tin tức</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Liên hệ</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <h5 class="footer-heading">Hỗ trợ</h5>
+                    <ul class="list-unstyled">
+                        <li>
+                            <a href="#" class="footer-item">Hướng dẫn thanh toán</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Quy chế vé xe</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Chính sách bảo mật thông tin</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item">Chính sách bảo mật thanh toán</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
-                
-            <div class="col">
-                <div class="shadow">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="~/public/bus@2x.png" />
-                        </div>
-                        <div class="col-8 fs-5">
-                            <h6 class="mt-2  fw-bolder ">2000+</h6>
-                            <a>Nhà xe</a>
-                        </div>
-                    </div>
+            <div class="row mt-3">
+                <div class="col text-center">
+                    <ul class="list-unstyled d-inline-block">
+                        <li>
+                            <a href="#" class="footer-item-social">Hướng dẫn thanh toán</a>
+                        </li>
+                        <li>
+                            <a href="#" class="footer-item-social">Quy chế vé xe</a>
+                        </li>
+                    </ul>
                 </div>
-             </div>
-                
-            <div class="col">
-                <div class="shadow">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="~/public/travel-agency@2x.png" />
-                        </div>
-                        <div class="col-8 fs-5">
-                            <h6 class="mt-2  fw-bolder ">5000+</h6>
-                            <a>Đại lý</a>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            <div class="col">
-                <div class="shadow">
-                    <div class="row">
-                        <div class="col-4">
-                            <img src="~/public/bus-size@2x.png" />
-                        </div>
-                        <div class="col-8 fs-5">
-                            <h6 class="mt-2  fw-bolder ">4000+</h6>
-                            <a>Bến xe</a>
-                        </div>
-                    </div>
-                </div>
-             </div>
-            
+            </div>
         </div>
-    </div>
-    <br />
-    <br />
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-4">
-                        <h4 style="color:cornflowerblue"class="footer-heading">Limosine VIP các tỉnh</h4>
-                        <ul class="list-group-1">
-                            <li>
-                                <a class="footer-item"href="#">Email: quangcongvan2004@gmail.com</a>
-                            </li>
-                            <li>
-                            <a class="footer-item">Hãy gọi cho chúng tôi để được hỗ trợ</a>
-                            </li>
-                            <li>
-                            <a class="footer-item" href="#">Số điện thoại: 0767050128</a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="col-3">
-                    <h4 class="footer-heading">Về chúng tôi</h4>
-                    <ul class="list-group-1">
-                        <li>
-                            <a class="footer-item" href="#">Phần mềm đại lý</a>
-                        </li>
-                        <li>
-                            <a class="footer-item">Giới thiệu vexere.com</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Tuyển dụng</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Tin tức</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Liên hệ</a>
-                        </li>
-                    </ul>
-                    </div>
-                    <div class="col-3">
-                    <h4 class="footer-heading">Hỗ trợ</h4>
-                    <ul class="list-group-1">
-                        <li>
-                            <a class="footer-item" href="#">Hướng dẫn thanh toán</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Quy chế vé xe</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Chính sách bảo mật thông tin</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Chính sách bảo mật thanh toán</a>
-                        </li>
-                        <li>
-                            <a class="footer-item" href="#">Hướng dẫn thanh toán</a>
-                        </li>
-                    </ul>
-                    </div>
-                    <div class="col-2">
-                    <h4 class="footer-heading">Tải ngay</h4>
-                    <div class="footer-dowload">
-                        <img src="~/public/vector3.svg" />
-                        <div class="footer-dowload-app">
-                            <img class="footer-dowload-app-img" src="~/public/downloadggplay@2x.png" />
-                            <img class="footer-dowload-app-img"src="~/public/downloadappstore@2x.png" />
-                        </div>
-                    </div>
-                 </div>
-            </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                <div class="col">
-                    <h4 class="footer-heading">Liên hệ với chúng tôi</h4>
-                    <ul class="list-group-1">
-                        <li>
-                            <a class="footer-item-social" href="#">Hướng dẫn thanh toán</a>
-                        </li>
-                        <li>
-                            <a class="footer-item-social" href="#">Quy chế vé xe</a>
-                        </li>
-                        <li>
-                            <a class="footer-item-social" href="#"><i class="fab fa-facebook"></i></a>
-                        </li>
-
-                    </ul>
-                </div>
-                </div>
-            </div>
-            
-        </footer>
+        
+    </footer>
      <script src="~/lib/bootstrap/js/bootstrap.js"></script> 
      <script src="~/lib/bootstrap/js/bootstrap.js"></script> 
 </body>

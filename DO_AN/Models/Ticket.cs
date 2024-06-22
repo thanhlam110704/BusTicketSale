@@ -7,7 +7,7 @@ namespace DO_AN.Models
     {
         public Ticket()
         {
-            Orders = new HashSet<Order>();
+            OrderTickets = new HashSet<OrderTicket>();
         }
 
         public int IdTicket { get; set; }
@@ -17,6 +17,6 @@ namespace DO_AN.Models
         public int IdTrain { get; set; }
 
         public virtual Train IdTrainNavigation { get; set; } = null!;
-        public virtual ICollection<Order> Orders { get; set; }
+        public virtual ICollection<OrderTicket> OrderTickets { get; set; }
     }
 }

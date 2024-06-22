@@ -21,6 +21,7 @@ namespace DO_AN.Models
         public virtual DbSet<Customer> Customers { get; set; } = null!;
         public virtual DbSet<Discount> Discounts { get; set; } = null!;
         public virtual DbSet<Order> Orders { get; set; } = null!;
+        public virtual DbSet<OrderTicket> OrderTickets { get; set; } = null!;
         public virtual DbSet<Role> Roles { get; set; } = null!;
         public virtual DbSet<Seat> Seats { get; set; } = null!;
         public virtual DbSet<Ticket> Tickets { get; set; } = null!;
@@ -31,7 +32,7 @@ namespace DO_AN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-VHPDFFPP\\SQLEXPRESS;Initial Catalog=DOAN;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
@@ -157,12 +158,31 @@ namespace DO_AN.Models
                     .HasForeignKey(d => d.IdDiscount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Discount");
+            });
+
+            modelBuilder.Entity<OrderTicket>(entity =>
+            {
+                entity.ToTable("Order_Ticket");
+
+                entity.Property(e => e.Id)
+                    .ValueGeneratedNever()
+                    .HasColumnName("ID");
+
+                entity.Property(e => e.IdOrder).HasColumnName("ID_Order");
+
+                entity.Property(e => e.IdTicket).HasColumnName("ID_Ticket");
+
+                entity.HasOne(d => d.IdOrderNavigation)
+                    .WithMany(p => p.OrderTickets)
+                    .HasForeignKey(d => d.IdOrder)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_Ticket_Order");
 
                 entity.HasOne(d => d.IdTicketNavigation)
-                    .WithMany(p => p.Orders)
+                    .WithMany(p => p.OrderTickets)
                     .HasForeignKey(d => d.IdTicket)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Order_Ticket");
+                    .HasConstraintName("FK_Order_Ticket_Ticket");
             });
 
             modelBuilder.Entity<Role>(entity =>
