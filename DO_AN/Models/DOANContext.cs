@@ -32,9 +32,9 @@ namespace DO_AN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=LAPTOP-VHPDFFPP\\SQLEXPRESS;Initial Catalog=DOAN;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
-            }
-        }
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-2S1N06EO;Initial Catalog=DOAN;Integrated Security=True");
+
+        } }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -297,9 +297,12 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdTrainRoute).HasColumnName("ID_TrainRoute");
 
-                entity.Property(e => e.NameTrainRoute)
+                entity.Property(e => e.Start_Route)
                     .HasMaxLength(50)
-                    .HasColumnName("Name_TrainRoute");
+                    .HasColumnName("Start_Route");
+                entity.Property(e => e.End_Route)
+                    .HasMaxLength(50)
+                    .HasColumnName("End_Route");
             });
 
             OnModelCreatingPartial(modelBuilder);

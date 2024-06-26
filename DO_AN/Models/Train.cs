@@ -17,8 +17,8 @@ namespace DO_AN.Models
         public int IdCoach { get; set; }
         public int IdTrainRoute { get; set; }
 
-        public virtual Coach IdCoachNavigation { get; set; } = null!;
-        public virtual TrainRoute IdTrainRouteNavigation { get; set; } = null!;
+        public virtual Coach IdCoachNavigation { get; set; } // Assuming Coach model is defined elsewhere
+        public virtual TrainRoute IdTrainRouteNavigation { get; set; } // Navigation property to TrainRoute
         public virtual ICollection<Ticket> Tickets { get; set; }
     }
 }

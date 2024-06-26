@@ -3,35 +3,120 @@
 }
 @model DO_AN.ViewModel.PageSearch.TicketListViewModel
 
-<!-- Search form -->
-<form asp-controller="Ticket" asp-action="SearchTicket" method="get">
-    <input type="text" name="noiDi" placeholder="Nơi đi" value="@ViewBag.NoiDi">
-    <input type="text" name="noiDen" placeholder="Nơi đến" value="@ViewBag.NoiDen">
-    <input type="date" name="ngayKhoiHanh" placeholder="Ngày khởi hành" value="@ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd")">
-    <button type="submit">Tìm kiếm</button>
-</form>
+<style>
+    /* Custom styles */
+    .ticket-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
 
-<!-- Ticket list -->
-@foreach (var veXe in Model.Tickets)
-{
-    <div>
-        <p>@veXe.IdTicket</p>
+    .ticket {
+        background-color: #f9f9f9;
+        padding: 10px;
+        margin-bottom: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
 
-        <p>Nơi đi: @veXe.IdTrainNavigation.IdTrainRouteNavigation.Start_Route</p>
-        <p>Nơi đến: @veXe.IdTrainNavigation.IdTrainRouteNavigation.End_Route</p>
-        <p>Ngày khởi hành: @veXe.Date?.ToShortDateString()</p>
-    </div>
-}
+    .ticket-info {
+        margin-bottom: 5px;
+    }
 
-<!-- Pagination -->
-@if (Model.PagingInfo.TotalPages > 1)
-{
-    <div>
-        @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
-        {
-            <a href="@Url.Action("SearchTicket", "Ticket", new { page = i, noiDi = ViewBag.NoiDi, noiDen = ViewBag.NoiDen, ngayKhoiHanh = ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd") })">
-                @i
-            </a>
+    .ticket-actions {
+        margin-top: 10px;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 1px solid #007bff;
+            border-radius: 3px;
+            margin: 0 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
+
+            .pagination a:hover {
+                background-color: #007bff;
+                color: #fff;
+            }
+
+    .search-form {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+        .search-form input[type=text],
+        .search-form input[type=date] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        .search-form button[type=submit] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 3px;
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+</style>
+
+<div class="ticket-container">
+    <div class="search-form">
+        <form asp-controller="Ticket" asp-action="SearchTicket" method="get" style="width:auto ">
+            <div class="row g-3">
+                <div class="col-lg-3">
+                    <input type="text" class="form-control" name="noiDi" placeholder="Nơi đi" value="@ViewBag.NoiDi">
+                </div>
+                <div class="col-lg-3">
+                    <input type="text" class="form-control" name="noiDen" placeholder="Nơi đến" value="@ViewBag.NoiDen">
+                </div>
+                <div class="col-lg-3">
+                    <input type="date" class="form-control" name="ngayKhoiHanh" placeholder="Ngày khởi hành" value="@ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd")">
+                </div>
+                <div class="col-lg-3">
+                    <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                </div>
+            </div>
+        </form>
     </div>
-}
+
+    <!-- Ticket list -->
+    @foreach (var veXe in Model.Tickets)
+    {
+        <div class="ticket">
+            <div class="ticket-info">
+                <h5>Vé số @veXe.IdTicket</h5>
+                <p><strong>Nơi đi:</strong> @veXe.IdTrainNavigation.IdTrainRouteNavigation.Start_Route</p>
+                <p><strong>Nơi đến:</strong> @veXe.IdTrainNavigation.IdTrainRouteNavigation.End_Route</p>
+                <p><strong>Ngày khởi hành:</strong> @veXe.Date?.ToShortDateString()</p>
+            </div>
+            <div class="ticket-actions">
+                <a href="@Url.Action("Index", "Order", new { id = veXe.IdTicket })" class="btn btn-success">Đặt vé</a>
+            </div>
+        </div>
+    }
+
+    <!-- Pagination -->
+    @if (Model.PagingInfo.TotalPages > 1)
+    {
+        <div class="pagination">
+            @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+            {
+                <a href="@Url.Action("SearchTicket", "Ticket", new { page = i, noiDi = ViewBag.NoiDi, noiDen = ViewBag.NoiDen, ngayKhoiHanh = ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd") })">@i</a>
+            }
+        </div>
+    }
+</div>
