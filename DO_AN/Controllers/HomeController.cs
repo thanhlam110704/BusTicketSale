@@ -16,10 +16,10 @@ namespace DO_AN.Controllers
             {
                 ViewBag.MySession = HttpContext.Session.GetString("UserSession").ToString();
             }
-            else
-            {
-                return RedirectToAction("Login", "Access");
-            }
+            //else
+            //{
+            //    return RedirectToAction("Index", "Home");
+            //}
             return View();
         }
         

@@ -13,7 +13,7 @@ namespace DO_AN.Models
         public int IdDiscount { get; set; }
         public string? NameDiscount { get; set; }
         public string? Information { get; set; }
-        public int PercentDiscount { get; set; }
+        public int? PercentDiscount { get; set; }
 
         public virtual ICollection<Order> Orders { get; set; }
     }

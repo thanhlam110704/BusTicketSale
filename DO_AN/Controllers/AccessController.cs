@@ -1,6 +1,7 @@
 ﻿using DO_AN.Models;
 using Microsoft.AspNetCore.Mvc;
 using DO_AN.ViewModel;
+using Microsoft.EntityFrameworkCore;
 
 namespace DO_AN.Controllers
 {
@@ -19,27 +20,31 @@ namespace DO_AN.Controllers
         [HttpPost]
         public IActionResult Register(RegisterVM registerVM)
         {
-            //try
-            //{
-            //    DOANContext daContext = new DOANContext();
-            //    var user = new Account()
-            //    {
-
-            //        Email = registerVM.Email,
-            //        Password = registerVM.Password,
-            //        Phone = registerVM.Phone,
-            //        DateOfBirth = registerVM.DateOfBirth,
-            //        Sex = registerVM.Sex,
-            //        IdRole = 2
-            //    };
-            //    daContext.Accounts.Add(user);
-            //    daContext.SaveChanges();
-            //    ViewBag.Status = 1;
-            //}
-            //catch
-            //{
-            //    ViewBag.Status = 0;
-            //}
+            DOANContext context = new DOANContext ();
+            if (ModelState.IsValid)
+            {
+                
+                    var empdata = new Account()
+                    {
+                        Email = registerVM.Email,
+                        Password = registerVM.Password,
+                        Phone = registerVM.Phone,
+                        Sex = registerVM.Sex,
+                        DateOfBirth = registerVM.DateOfBirth,
+                        IdRole = 2
+                    };
+                
+                
+                context.Accounts.Add(empdata);
+                context.SaveChanges();
+                ViewBag.Status = 1;
+                return RedirectToAction("Login");
+            }
+            else
+            {
+                ViewBag.Status = 0;
+            }
+            
             return View();
         }
         public IActionResult Login()
@@ -52,8 +57,16 @@ namespace DO_AN.Controllers
             var myUser = context.Accounts.Where(x => x.Email == user.Email && x.Password == user.Password).FirstOrDefault();
             if(myUser != null)
             {
-                HttpContext.Session.SetString("UserSession",myUser.Email);
-                return RedirectToAction("Index", "Home");
+                if(user.IdRole == 1)
+                {
+                    HttpContext.Session.SetString("UserSession", myUser.Email);
+                    return RedirectToAction("Register", "Access");
+                }
+                else
+                {
+                    HttpContext.Session.SetString("UserSession", myUser.Email);
+                    return RedirectToAction("Index", "Home");
+                }
             }
             else
             {

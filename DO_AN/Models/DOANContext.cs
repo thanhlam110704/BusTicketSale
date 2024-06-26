@@ -32,7 +32,6 @@ namespace DO_AN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-VHPDFFPP\\SQLEXPRESS;Initial Catalog=DOAN;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
@@ -45,17 +44,17 @@ namespace DO_AN.Models
 
                 entity.ToTable("Account");
 
-                entity.Property(e => e.IdAccount)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Account");
+                entity.HasIndex(e => e.IdRole, "IX_Account_ID_Role");
+
+                entity.Property(e => e.IdAccount).HasColumnName("ID_Account");
 
                 entity.Property(e => e.DateOfBirth).HasColumnType("date");
 
-                entity.Property(e => e.Email).HasMaxLength(30);
+                entity.Property(e => e.Email).HasMaxLength(50);
 
                 entity.Property(e => e.IdRole).HasColumnName("ID_Role");
 
-                entity.Property(e => e.Password).HasMaxLength(30);
+                entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.Property(e => e.Phone).HasMaxLength(20);
 
@@ -72,17 +71,24 @@ namespace DO_AN.Models
 
                 entity.ToTable("Coach");
 
-                entity.Property(e => e.IdCoach)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Coach");
+                entity.HasIndex(e => e.IdSeat, "IX_Coach_ID_Seat");
 
-                entity.Property(e => e.Category).HasMaxLength(20);
+                entity.Property(e => e.IdCoach).HasColumnName("ID_Coach");
+
+                entity.Property(e => e.Category).HasMaxLength(50);
+
+                entity.Property(e => e.IdSeat).HasColumnName("ID_Seat");
 
                 entity.Property(e => e.NameCoach)
-                    .HasMaxLength(30)
+                    .HasMaxLength(50)
                     .HasColumnName("Name_Coach");
 
                 entity.Property(e => e.SeatsQuantity).HasColumnName("Seats_Quantity");
+
+                entity.HasOne(d => d.IdSeatNavigation)
+                    .WithMany(p => p.Coaches)
+                    .HasForeignKey(d => d.IdSeat)
+                    .HasConstraintName("FK_Coach_Seat");
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -91,9 +97,11 @@ namespace DO_AN.Models
 
                 entity.ToTable("Customer");
 
-                entity.Property(e => e.IdCus)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Cus");
+                entity.HasIndex(e => e.IdAccount, "IX_Customer_ID_Account");
+
+                entity.HasIndex(e => e.IdOrder, "IX_Customer_ID_Order");
+
+                entity.Property(e => e.IdCus).HasColumnName("ID_Cus");
 
                 entity.Property(e => e.FullName)
                     .HasMaxLength(50)
@@ -106,6 +114,7 @@ namespace DO_AN.Models
                 entity.HasOne(d => d.IdAccountNavigation)
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.IdAccount)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Customer_Account");
 
                 entity.HasOne(d => d.IdOrderNavigation)
@@ -120,11 +129,9 @@ namespace DO_AN.Models
 
                 entity.ToTable("Discount");
 
-                entity.Property(e => e.IdDiscount)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Discount");
+                entity.Property(e => e.IdDiscount).HasColumnName("ID_Discount");
 
-                entity.Property(e => e.Information).HasMaxLength(200);
+                entity.Property(e => e.Information).HasMaxLength(150);
 
                 entity.Property(e => e.NameDiscount)
                     .HasMaxLength(50)
@@ -139,9 +146,7 @@ namespace DO_AN.Models
 
                 entity.ToTable("Order");
 
-                entity.Property(e => e.IdOrder)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Order");
+                entity.Property(e => e.IdOrder).HasColumnName("ID_Order");
 
                 entity.Property(e => e.DateOrder)
                     .HasColumnType("date")
@@ -156,7 +161,6 @@ namespace DO_AN.Models
                 entity.HasOne(d => d.IdDiscountNavigation)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.IdDiscount)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Order_Discount");
             });
 
@@ -164,9 +168,11 @@ namespace DO_AN.Models
             {
                 entity.ToTable("Order_Ticket");
 
-                entity.Property(e => e.Id)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID");
+                entity.HasIndex(e => e.IdOrder, "IX_Order_Ticket_ID_Order");
+
+                entity.HasIndex(e => e.IdTicket, "IX_Order_Ticket_ID_Ticket");
+
+                entity.Property(e => e.Id).HasColumnName("ID");
 
                 entity.Property(e => e.IdOrder).HasColumnName("ID_Order");
 
@@ -191,12 +197,10 @@ namespace DO_AN.Models
 
                 entity.ToTable("Role");
 
-                entity.Property(e => e.IdRole)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Role");
+                entity.Property(e => e.IdRole).HasColumnName("ID_Role");
 
                 entity.Property(e => e.NameRole)
-                    .HasMaxLength(20)
+                    .HasMaxLength(50)
                     .HasColumnName("Name_Role");
             });
 
@@ -206,21 +210,11 @@ namespace DO_AN.Models
 
                 entity.ToTable("Seat");
 
-                entity.Property(e => e.IdSeat)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Seat");
-
-                entity.Property(e => e.IdCoach).HasColumnName("ID_Coach");
+                entity.Property(e => e.IdSeat).HasColumnName("ID_Seat");
 
                 entity.Property(e => e.NameSeat)
-                    .HasMaxLength(30)
+                    .HasMaxLength(50)
                     .HasColumnName("Name_Seat");
-
-                entity.HasOne(d => d.IdCoachNavigation)
-                    .WithMany(p => p.Seats)
-                    .HasForeignKey(d => d.IdCoach)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Seat_Coach");
             });
 
             modelBuilder.Entity<Ticket>(entity =>
@@ -229,15 +223,23 @@ namespace DO_AN.Models
 
                 entity.ToTable("Ticket");
 
-                entity.Property(e => e.IdTicket)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Ticket");
+                entity.HasIndex(e => e.IdSeat, "IX_Ticket_ID_Seat");
+
+                entity.HasIndex(e => e.IdTrain, "IX_Ticket_ID_Train");
+
+                entity.Property(e => e.IdTicket).HasColumnName("ID_Ticket");
 
                 entity.Property(e => e.Date).HasColumnType("date");
 
                 entity.Property(e => e.IdSeat).HasColumnName("ID_Seat");
 
                 entity.Property(e => e.IdTrain).HasColumnName("ID_Train");
+
+                entity.HasOne(d => d.IdSeatNavigation)
+                    .WithMany(p => p.Tickets)
+                    .HasForeignKey(d => d.IdSeat)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Ticket_Seat");
 
                 entity.HasOne(d => d.IdTrainNavigation)
                     .WithMany(p => p.Tickets)
@@ -252,9 +254,11 @@ namespace DO_AN.Models
 
                 entity.ToTable("Train");
 
-                entity.Property(e => e.IdTrain)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_Train");
+                entity.HasIndex(e => e.IdCoach, "IX_Train_ID_Coach");
+
+                entity.HasIndex(e => e.IdTrainRoute, "IX_Train_ID_TrainRoute");
+
+                entity.Property(e => e.IdTrain).HasColumnName("ID_Train");
 
                 entity.Property(e => e.DateEnd)
                     .HasColumnType("date")
@@ -291,9 +295,7 @@ namespace DO_AN.Models
 
                 entity.ToTable("TrainRoute");
 
-                entity.Property(e => e.IdTrainRoute)
-                    .ValueGeneratedNever()
-                    .HasColumnName("ID_TrainRoute");
+                entity.Property(e => e.IdTrainRoute).HasColumnName("ID_TrainRoute");
 
                 entity.Property(e => e.NameTrainRoute)
                     .HasMaxLength(50)

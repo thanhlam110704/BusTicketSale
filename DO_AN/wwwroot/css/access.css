@@ -19,11 +19,11 @@
     justify-content: center;
     align-items: center;
     padding: 15px;
-    background: #9053c7;
+/*    background: #9053c7;
     background: -webkit-linear-gradient(-135deg, #c850c0, #4158d0);
     background: -o-linear-gradient(-135deg, #c850c0, #4158d0);
     background: -moz-linear-gradient(-135deg, #c850c0, #4158d0);
-    background: linear-gradient(-135deg, #c850c0, #4158d0);
+    background: linear-gradient(-135deg, #c850c0, #4158d0);*/
 }
 .wrap-login100 {
     width: 960px;
@@ -38,6 +38,7 @@
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 177px 130px 33px 95px;
+    background-color:lightgoldenrodyellow;
 }
 .login100-pic {
     width: 316px;
@@ -121,7 +122,7 @@
     width: 100%;
     background: #e6e6e6;
     height: 50px;
-    border-radius: 25px;
+    border-radius: 15px;
     padding-left: 15px;
 }
 .focus-input100 {
@@ -147,8 +148,11 @@ form {
 }
 .lg-failed{
     color:red;
-    margin-left:15px;
+    margin-left:20px;
     font-family:'Times New Roman';
+    font-weight:300;
+    margin-top:5px;
+    font-size:11px;
 }
 .lg-box {
     padding-left: 30px;
@@ -158,4 +162,7 @@ form {
     height: 40px;
     border-radius: 10px;
     font-weight:500;
+}
+.radio{
+    margin-left:10px;
 }

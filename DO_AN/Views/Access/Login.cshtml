@@ -1,5 +1,6 @@
 ﻿<link rel="stylesheet" href="~/css/access.css" />
- 
+@* <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+ *@ 
  @model Account
 <div class="limiter">
     <div class="container-login100">
@@ -20,10 +21,12 @@
                         }
                     }
                     <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
+                        
                         @Html.TextBoxFor(x => x.Email, new { @class = "input100", type = "text" ,name = "email" ,placeholder = "Email",required="required",autofocus="autofocus" })
-                        <span class="focus-input100"></span>
+                        <span asp-validation-for="Email"></span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
+                        
                         @Html.TextBoxFor(x => x.Password, new { @class = "input100" ,type = "password" ,name = "password" ,placeholder = "Password", required = "required", autofocus = "autofocus" })
                        <span class="focus-input100"></span>
                         
@@ -42,7 +45,7 @@
                         </a>
                     </div>
                     <div class="text-center p-t-136">
-                        <a class="txt2" asp-action="Register">
+                        <a class="txt2" asp-action="Register" asp-controller="Access">
                             Create your Account
                         </a>
                     </div>

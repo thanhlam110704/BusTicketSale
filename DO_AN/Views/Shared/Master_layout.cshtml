@@ -1,7 +1,7 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{
     var httpContext = HttpContextAccessor.HttpContext;
-    var Email = httpContext.Session.GetString("UserSession"); // Thay "UserName" bằng key session mà bạn muốn lấy
+    var Email = httpContext.Session.GetString("UserSession");
 }
 <!DOCTYPE html>
 <html>
@@ -16,6 +16,7 @@
 
 </head>
 <body>
+
     <div style="background-color:dodgerblue ; height:98px">
         <div class="container-fluid">
             <div class="row"style="align-items:center">
@@ -23,7 +24,7 @@
                     <img src="~/public/icon-vxr-full-2-1@2x.png" />
                 </div>
                 
-                <div class="col-3 py-3">
+                <div class="col-3 py-3 ">
                     <p style="text-decoration:none" class="lg-a">
                         Cam kết hoàn 150% nếu nhà xe
                         không cung cấp dịch vụ vận chuyển (*)
@@ -34,7 +35,7 @@
                     <a style="text-decoration:none" class="lg-a">Đơn hàng của tôi</a>
                 </div>
                 <div style="color:white ;text-align:center" class="col-1">
-                    <a style="text-decoration:none" class="lg-a">Trang chủ</a>
+                    <a asp-action="Index" asp-controller="Home" style="text-decoration:none" class="lg-a">Trang chủ</a>
                 </div>
                 <div  style="color:white;text-align:center" class="col-1 py-4 px-sm-0">
                     <a href="/Access/Register" style="text-decoration:none" class="lg-a">Liên hệ</a>
@@ -42,9 +43,29 @@
                 
                 @if (!string.IsNullOrEmpty(Email))
                 {
-                    <div style="color:white;text-align:center" class="col-3 py-4">
-                        <a style="text-decoration:none;margin-left:-20px" class="lg-a">Xin chào @ViewBag.MySession</a>
-                        <a asp-action="Logout" asp-controller="Access" style="text-decoration:none" class="lg-a">Đăng xuất</a>
+                   
+                    <div class="col-3">
+                        <div class="action">
+                            <div class="profile" onclick="menuToggle();">
+                                <img src="https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/user_profile.svg" />
+                            </div>
+                            <div class="menu">
+                                <ul>
+                                    <li>
+                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/Auth/account-circle.svg" /><a href="#">Thông tin tài khoản</a>
+                                    </li>
+
+
+                                    <li>
+                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/ticket.svg" /><a href="#">Đơn hàng của tôi</a>
+                                    </li>
+                                    <li><img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/review.svg" /><a href="#">Nhận xét chuyến đi</a></li>
+                                    <li>
+                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/Auth/logout.svg" /><a asp-action="Logout" asp-controller="Access">Logout</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 }
                 else
@@ -55,6 +76,9 @@
                    <div class="col-2 py-4 lg-box">
                         <a style="position:absolute;bottom:25%;text-decoration:none;color:black" class="lg-a" href="/Access/Login">Đăng nhập</a>
                    </div>
+                   
+                    
+                    
                 }
             </div>
         </div>
@@ -133,6 +157,12 @@
         
     </footer>
      <script src="~/lib/bootstrap/js/bootstrap.js"></script> 
-     <script src="~/lib/bootstrap/js/bootstrap.js"></script> 
+     <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <script>
+        function menuToggle() {
+            const toggleMenu = document.querySelector(".menu");
+            toggleMenu.classList.toggle("active");
+        }
+    </script>
 </body>
 </html>

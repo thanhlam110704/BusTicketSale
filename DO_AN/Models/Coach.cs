@@ -7,7 +7,6 @@ namespace DO_AN.Models
     {
         public Coach()
         {
-            Seats = new HashSet<Seat>();
             Trains = new HashSet<Train>();
         }
 
@@ -15,8 +14,9 @@ namespace DO_AN.Models
         public string? NameCoach { get; set; }
         public string? Category { get; set; }
         public int? SeatsQuantity { get; set; }
+        public int? IdSeat { get; set; }
 
-        public virtual ICollection<Seat> Seats { get; set; }
+        public virtual Seat? IdSeatNavigation { get; set; }
         public virtual ICollection<Train> Trains { get; set; }
     }
 }

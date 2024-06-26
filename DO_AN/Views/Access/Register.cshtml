@@ -1,4 +1,5 @@
-﻿@* @model DO_AN.ViewModel.RegisterVM
+﻿@model DO_AN.ViewModel.RegisterVM
+<link rel="stylesheet" href="~/css/access.css" />
 <div class="limiter">
     <div class="container-login100">
         <div class="wrap-login100">
@@ -10,7 +11,7 @@
                 
                 <form class="login100-form validate-form">
                     <span class="login100-form-title">
-                        Member Login
+                        Member Register
                     </span>
                     @{
                         if (ViewBag.Status != null)
@@ -25,35 +26,41 @@
                             }
                         }
                     }
-                    <div class="wrap-input100 validate-input" data-validate="Valid email is required: ex@abc.xyz">
-                        @Html.TextBoxFor(x => x.Email, new { @class = "input100", type = "text", name = "email", placeholder = "Email", required = "required", autofocus = "autofocus" })
+                    <div class="wrap-input100" >
+                        <input class="input100" type="email" asp-for="Email" placeholder="Email" />
+                        <div class="lg-failed">
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        @Html.PasswordFor(x => x.Password, new { @class = "input100", type = "password", name = "password", placeholder = "Password", required = "required", autofocus = "autofocus" })
+                        <input class="input100" type="password" asp-for="Password" placeholder="Password" />
+                        <div class="lg-failed">
+                            <span asp-validation-for="Password"></span>
+                        </div>
                         
-                        <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
-                        @Html.PasswordFor(x => x.Cf_Password, new { @class = "input100", type = "password", name = "cf_password", placeholder = "Confirm Password", required = "required", autofocus = "autofocus" })
+                        <input class="input100" type="password" asp-for="ConfirmPassword" placeholder="Confirm Password" />
+                        <div class="lg-failed">
+                            <span asp-validation-for="ConfirmPassword"></span>
+                        </div>
                         
-                        <span class="focus-input100"></span>
 
                     </div>
                     <div class="wrap-input100 validate-input">
-                        @Html.TextBoxFor(x => x.Phone, new { @class = "input100", type = "text", name = "phone", placeholder = "Phone number", autofocus = "autofocus" })
+                        <input class="input100" type="text" asp-for="Phone" placeholder="Phone number" />
                         <span class="focus-input100"></span>
                     </div>
                     <div class="wrap-input100 validate-input">
-                        @Html.TextBoxFor(x => x.DateOfBirth, new { @style ="padding-right:10px" ,@class = "input100", type = "date", name = "birthDay", placeholder = "Date Of Birth", autofocus = "autofocus" })
+                        <input style="padding-right:10px" class="input100" type ="date" asp-for="DateOfBirth" placeholder = "Date Of Birth"/>
                     </div>
-
-                    <div class="wrap-input100 validate-input">
-                        <select class="wrap-input100 form-control">
-                            <option value="0">Nữ</option>
-                            <option value="1">Nam</option>
-                        </select>
+                    <div class="radio">
+                        <input type="radio" id="SexMale" name="sex" value="true" />
+                        <label for="SexFemale">Nam</label>
+                        <input type="radio" id="SexFemale" name="sex" value="false"/>
+                        <label for="SexFemale">Nữ</label>
                     </div>
-                        
                     <div class="container-login100-form-btn">
                         <button class="login100-form-btn">
                             Register
@@ -76,4 +83,3 @@
 </div>
 
 
- *@
