@@ -1,4 +1,4 @@
-namespace DO_AN.Models
+﻿namespace DO_AN.Models
 {
     public class ErrorViewModel
     {

@@ -32,6 +32,7 @@ namespace DO_AN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-VHPDFFPP\\SQLEXPRESS;Initial Catalog=DOAN;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
@@ -260,10 +261,6 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdTrain).HasColumnName("ID_Train");
 
-                entity.Property(e => e.DateEnd)
-                    .HasColumnType("date")
-                    .HasColumnName("Date_End");
-
                 entity.Property(e => e.DateStart)
                     .HasColumnType("date")
                     .HasColumnName("Date_Start");
@@ -297,9 +294,13 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdTrainRoute).HasColumnName("ID_TrainRoute");
 
-                entity.Property(e => e.NameTrainRoute)
-                    .HasMaxLength(50)
-                    .HasColumnName("Name_TrainRoute");
+                entity.Property(e => e.PointEnd)
+                    .HasMaxLength(30)
+                    .HasColumnName("Point_End");
+
+                entity.Property(e => e.PointStart)
+                    .HasMaxLength(30)
+                    .HasColumnName("Point_Start");
             });
 
             OnModelCreatingPartial(modelBuilder);

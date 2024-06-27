@@ -294,10 +294,6 @@ namespace DO_AN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTrain"), 1L, 1);
 
-                    b.Property<DateTime?>("DateEnd")
-                        .HasColumnType("date")
-                        .HasColumnName("Date_End");
-
                     b.Property<DateTime?>("DateStart")
                         .HasColumnType("date")
                         .HasColumnName("Date_Start");
@@ -337,6 +333,16 @@ namespace DO_AN.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name_TrainRoute");
+
+                    b.Property<string>("PointEnd")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("Point_End");
+
+                    b.Property<string>("PointStart")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("Point_Start");
 
                     b.HasKey("IdTrainRoute");
 

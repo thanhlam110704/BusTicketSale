@@ -57,7 +57,9 @@ namespace DO_AN.Migrations
                 {
                     ID_TrainRoute = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_TrainRoute = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true)
+                    Name_TrainRoute = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Point_Start = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
+                    Point_End = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -162,7 +164,6 @@ namespace DO_AN.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name_Train = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Date_Start = table.Column<DateTime>(type: "date", nullable: true),
-                    Date_End = table.Column<DateTime>(type: "date", nullable: true),
                     ID_Coach = table.Column<int>(type: "int", nullable: false),
                     ID_TrainRoute = table.Column<int>(type: "int", nullable: false)
                 },

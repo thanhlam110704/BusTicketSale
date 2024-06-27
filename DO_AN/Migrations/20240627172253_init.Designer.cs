@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DO_AN.Migrations
 {
     [DbContext(typeof(DOANContext))]
-    [Migration("20240626034625_init")]
+    [Migration("20240627172253_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -296,10 +296,6 @@ namespace DO_AN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTrain"), 1L, 1);
 
-                    b.Property<DateTime?>("DateEnd")
-                        .HasColumnType("date")
-                        .HasColumnName("Date_End");
-
                     b.Property<DateTime?>("DateStart")
                         .HasColumnType("date")
                         .HasColumnName("Date_Start");
@@ -339,6 +335,16 @@ namespace DO_AN.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
                         .HasColumnName("Name_TrainRoute");
+
+                    b.Property<string>("PointEnd")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("Point_End");
+
+                    b.Property<string>("PointStart")
+                        .HasMaxLength(30)
+                        .HasColumnType("nvarchar(30)")
+                        .HasColumnName("Point_Start");
 
                     b.HasKey("IdTrainRoute");
 

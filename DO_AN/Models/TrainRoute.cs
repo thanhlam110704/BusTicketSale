@@ -11,7 +11,8 @@ namespace DO_AN.Models
         }
 
         public int IdTrainRoute { get; set; }
-        public string? NameTrainRoute { get; set; }
+        public string? PointStart { get; set; }
+        public string? PointEnd { get; set; }
 
         public virtual ICollection<Train> Trains { get; set; }
     }
