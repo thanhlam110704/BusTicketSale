@@ -13,7 +13,6 @@ namespace DO_AN.Models
         public int IdTrain { get; set; }
         public string? NameTrain { get; set; }
         public DateTime? DateStart { get; set; }
-        public DateTime? DateEnd { get; set; }
         public int IdCoach { get; set; }
         public int IdTrainRoute { get; set; }
 

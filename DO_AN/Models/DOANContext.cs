@@ -260,10 +260,6 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdTrain).HasColumnName("ID_Train");
 
-                entity.Property(e => e.DateEnd)
-                    .HasColumnType("date")
-                    .HasColumnName("Date_End");
-
                 entity.Property(e => e.DateStart)
                     .HasColumnType("date")
                     .HasColumnName("Date_Start");
@@ -297,12 +293,13 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdTrainRoute).HasColumnName("ID_TrainRoute");
 
-                entity.Property(e => e.Start_Route)
-                    .HasMaxLength(50)
-                    .HasColumnName("Start_Route");
-                entity.Property(e => e.End_Route)
-                    .HasMaxLength(50)
-                    .HasColumnName("End_Route");
+                entity.Property(e => e.PointEnd)
+                    .HasMaxLength(30)
+                    .HasColumnName("Point_End");
+
+                entity.Property(e => e.PointStart)
+                    .HasMaxLength(30)
+                    .HasColumnName("Point_Start");
             });
 
             OnModelCreatingPartial(modelBuilder);
