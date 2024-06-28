@@ -1,0 +1,137 @@
+﻿<div class="card mb-3">
+    <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Lọc</h5>
+        <button class="btn btn-link" onclick="clearFilters()">Xóa lọc</button>
+    </div>
+    <div class="card-body">
+        <form id="filterForm" asp-controller="Ticket" asp-action="SearchTicket" method="get" style="width:auto">
+            <div class="filter-group">
+                <div class="filter-title">
+                    <p>Giờ đi</p>
+                </div>
+                <div class="input-group " >
+                    <input type="text" class="form-control" name="startTime" value="00:00" style="height:max-content;text-align: center;">
+                    <span class="input-group-text">đến</span>
+                    <input type="text" class="form-control" name="endTime" value="24:00" style="height:max-content;text-align: center;">
+                </div>
+            </div>
+
+            <div class="filter-group mt-3" >
+                <div class="filter-title">
+                    <p>Nơi đi</p>
+                </div>
+                <select class="form-select" id="startRoute" name="startRoute" onchange="submitFilterForm()">
+                    <option value="" selected>Mặc Định</option>
+                    @foreach (var route in Model.TrainRoutes)
+                    {
+                        <option value="@route.Start_Route">@route.Start_Route</option>
+                    }
+                </select>
+            </div>
+
+            <div class="filter-group mt-3" >
+                <div class="filter-title">
+                    <p>Nơi đến</p>
+                </div>
+                <select class="form-select" id="endRoute" name="endRoute" onchange="submitFilterForm()">
+                    <option value="" selected>Mặc Định</option>
+                    @foreach (var route in Model.TrainRoutes)
+                    {
+                        <option value="@route.End_Route">@route.End_Route</option>
+                    }
+                </select>
+            </div>
+
+            <div class="filter-group mt-3" >
+                <div class="filter-title">
+                    <p>Loại xe</p>
+                </div>
+                <select class="form-select" id="vehicleType" name="vehicleType" onchange="submitFilterForm()">
+                    <option value="" selected>Mặc Định</option>
+                    @* @foreach (var vehicleType in Model.VehicleTypes)
+                    {
+                    <option value="@vehicleType.Id">@vehicleType.Name</option>
+                    } *@
+                </select>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+  <style>
+    .filter-title p{
+         margin-bottom: 0px
+    }
+        .form-select {
+            color: gray;
+        }
+
+            .form-select option {
+                color: black;
+            }
+
+    </style>
+
+<script>
+
+
+    // document.addEventListener('DOMContentLoaded', (event) => {
+    //     const startRouteSelect = document.getElementById('startRoute');
+    //     const endRouteSelect = document.getElementById('endRoute');
+    //     const vehicleTypeSelect = document.getElementById('vehicleType');
+
+    //     const updateSelectText = (selectElement) => {
+    //         const selectedOption = selectElement.options[selectElement.selectedIndex].text;
+    //         selectElement.style.color = selectedOption === "Mặc Định" ? 'gray' : 'black';
+    //     };
+
+    //     startRouteSelect.addEventListener('change', () => updateSelectText(startRouteSelect));
+    //     endRouteSelect.addEventListener('change', () => updateSelectText(endRouteSelect));
+    //     vehicleTypeSelect.addEventListener('change', () => updateSelectText(vehicleTypeSelect));
+
+    //     // Initialize with default color
+    //     updateSelectText(startRouteSelect);
+    //     updateSelectText(endRouteSelect);
+    //     updateSelectText(vehicleTypeSelect);
+    // });
+
+
+    function submitFilterForm() {
+        const startRoute = document.getElementById('startRoute').value;
+        const endRoute = document.getElementById('endRoute').value;
+
+        // Tạo chuỗi truy vấn URL với các bộ lọc đã chọn
+        let queryString = "";
+        if (startRoute) {
+            queryString += `noiDi=${startRoute}`;
+        }
+        if (endRoute) {
+            queryString += (queryString.length > 0 ? '&' : '') + `noiDen=${endRoute}`;
+        }
+
+        // Gửi yêu cầu GET đến TicketController với các tham số truy vấn
+        fetch(`/Ticket/SearchTicket?${queryString}`, {
+            method: 'GET'
+        }).then(response => {
+            // Xử lý kết quả nếu cần
+            // Ví dụ: window.location.href = response.url;
+            console.log('Redirecting to:', response.url);
+            window.location.href = response.url; // Chuyển hướng đến URL được phản hồi từ server
+        }).catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+
+
+    function clearFilters() {
+        document.getElementById('startRoute').value = '';
+        document.getElementById('endRoute').value = '';
+        document.getElementById('vehicleType').value = '';
+        document.getElementById('filterForm').submit();
+    }
+
+
+
+</script>

@@ -1,0 +1,50 @@
+﻿@model TicketListViewModel
+@using DO_AN.ViewModel.Paging;
+
+<style>
+    .pagination a {
+        padding: 5px 10px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        margin: 0 2px;
+    }
+
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+        }
+</style>
+
+
+<div class="ticket-container">
+    <!-- Ticket list -->
+    @foreach (var veXe in Model.Tickets)
+    {
+        <div class="ticket">
+            <div class="ticket-info">
+                <h5>Vé số @veXe.IdTicket</h5>
+                <p><strong>Nơi đi:</strong> @veXe.IdTrainNavigation.IdTrainRouteNavigation.Start_Route</p>
+                <p><strong>Nơi đến:</strong> @veXe.IdTrainNavigation.IdTrainRouteNavigation.End_Route</p>
+                <p><strong>Ngày khởi hành:</strong> @veXe.Date?.ToShortDateString()</p>
+            </div>
+            <div class="ticket-actions">
+                <a href="@Url.Action("Index", "Order", new { id = veXe.IdTicket })" class="btn btn-success">Đặt vé</a>
+            </div>
+        </div>
+    }
+
+    <!-- Pagination -->
+    @if (Model.PagingInfo.TotalPages > 1)
+    {
+        <div class="pagination">
+            @for (int i = 1; i <= Model.PagingInfo.TotalPages; i++)
+            {
+                <a href="@Url.Action("SearchTicket", "Ticket", new { page = i, noiDi = ViewBag.NoiDi, noiDen = ViewBag.NoiDen, ngayKhoiHanh = ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd") })"
+                   class="@(i == Model.PagingInfo.CurrentPage ? "active" : "")">
+                    @i
+                </a>
+            }
+        </div>
+    }
+</div>

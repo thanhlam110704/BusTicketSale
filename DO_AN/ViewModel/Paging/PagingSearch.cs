@@ -1,4 +1,4 @@
-﻿namespace DO_AN.ViewModel.PageSearch
+﻿namespace DO_AN.ViewModel.Paging
 {
     public class PagingSearch
     {
