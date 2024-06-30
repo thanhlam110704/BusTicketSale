@@ -200,9 +200,13 @@
 
                             <!-- Phần chọn ghế -->
                             <div class="col-md-8">
-
                                 <div id="seat-selection" class="seat-selection">
-                                    <!-- Seats will be generated here by JavaScript -->
+                                    @foreach (var seat in Model.SeatState)
+                                    {
+                                        <div class="seat @(seat.IsBooked == true ? "occupied" : "empty")" id="seat-@seat.SeatId">
+                                            @seat.SeatName
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -218,21 +222,7 @@
                     </div>
                     <div class="card-body">
                         <form id="personal-info-form" style="width:auto">
-                            <div class="mb-3">
-                                <label for="userName" class="form-label">Tên người đi <span>*</span></label>
-                                <input type="text" class="form-control" id="userName"  required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Số điện thoại <span>*</span></label>
-                                <div class="input-group">
-                                    <span class="input-group-text">🇻🇳 +84</span>
-                                    <input type="tel" class="form-control" id="phone"  required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email để nhận thông tin đặt chỗ <span>*</span></label>
-                                <input type="email" class="form-control" id="email"  required>
-                            </div>
+                            <!-- Form fields as before -->
                         </form>
                         <div class="alert alert-info mt-3" role="alert" style="margin:5px 0px 0px 0px">
                             Số điện thoại và email được sử dụng để gửi thông tin đơn hàng và liên hệ khi cần thiết.
@@ -245,7 +235,7 @@
                         Tổng giá vé
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">Tổng cộng: <span id="total-price">0</span> VND</h5>
+                        <h5 class="card-title">Tổng cộng: <span id="total-price">@Model.TicketPrice</span> VND</h5>
                         <button type="button" class="btn btn-primary" style="margin:5px 0px 0px 0px" onclick="submitBooking()">Đặt vé</button>
                     </div>
                 </div>
@@ -260,20 +250,20 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-3">
                             <img class="me-2" src="https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/bus_blue_24dp.svg" alt="bus" width="16" height="16">
-                            <h6 class="mb-0 ms-2">Chiều đi:</h6>
-                            <span class="ms-2">T2, 22/02/2004</span>
+                            <h6 class="mb-0 ms-2">Thời gian khởi hành:</h6>
+                            <span class="ms-2">@Model.DateStart</span>
                         </div>
 
-                        <p><strong>09:15</strong> Sân bay Tân Sơn Nhất</p>
-                        <p><strong>12:00</strong> Văn phòng Vũng Tàu</p>
+                        <p><strong>Nơi đi:</strong> @Model.PointStart</p>
+                        <p><strong>Nơi đến:</strong> @Model.PointEnd</p>
                         <hr>
 
                         <div class="d-flex align-items-center mb-3">
                             <img class="me-2" src="https://229a2c9fe669f7b.cmccloud.com.vn/svgIcon/bus_blue_24dp.svg" alt="bus" width="16" height="16">
-                            <p class="mb-0 ms-2">Vie Limousine</p>
+                            <p class="mb-0 ms-2">@Model.NameCoach</p>
                         </div>
 
-                        <p><strong>Loại xe:</strong> Limousine 9 chỗ</p>
+                        <p><strong>Loại xe:</strong> @Model.Train.IdCoachNavigation.Category</p>
 
                         <div class="selected-seats mt-3" id="selected-seats">
                             <!-- Selected seats will be displayed here -->
@@ -281,7 +271,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 

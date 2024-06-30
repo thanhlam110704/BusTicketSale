@@ -295,11 +295,11 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.PointEnd)
                     .HasMaxLength(30)
-                    .HasColumnName("Point_End");
+                    .HasColumnName("PointEnd");
 
                 entity.Property(e => e.PointStart)
                     .HasMaxLength(30)
-                    .HasColumnName("Point_Start");
+                    .HasColumnName("PointStart");
             });
 
             OnModelCreatingPartial(modelBuilder);

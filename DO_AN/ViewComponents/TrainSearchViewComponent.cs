@@ -15,44 +15,41 @@ namespace DO_AN.ViewComponents
             _context = context;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(string noiDi, string noiDen, DateTime? ngayKhoiHanh, int page = 1,int pageSize=2)
+        public async Task<IViewComponentResult> InvokeAsync(string noiDi, string noiDen, DateTime? ngayKhoiHanh, int page = 1, int pageSize = 2)
         {
-            var veXeQuery = _context.Tickets
-                .Include(t => t.IdSeatNavigation)
-                .Include(t => t.IdTrainNavigation)
-                .ThenInclude(train => train.IdTrainRouteNavigation)
-                .AsQueryable();
+            var chuyenxeQuery = _context.Trains
+                .Include(t => t.IdTrainRouteNavigation).AsQueryable();
 
+            // Apply filters only when provided
             if (!string.IsNullOrEmpty(noiDi))
             {
-                veXeQuery = veXeQuery.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.Start_Route.Contains(noiDi));
+                chuyenxeQuery = chuyenxeQuery.Where(v => v.IdTrainRouteNavigation.PointStart.Contains(noiDi));
             }
-
             if (!string.IsNullOrEmpty(noiDen))
             {
-                veXeQuery = veXeQuery.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.End_Route.Contains(noiDen));
+                chuyenxeQuery = chuyenxeQuery.Where(v => v.IdTrainRouteNavigation.PointEnd.Contains(noiDen));
             }
             if (ngayKhoiHanh.HasValue)
             {
                 var date = ngayKhoiHanh.Value.Date;
-                veXeQuery = veXeQuery.Where(v => v.Date.HasValue && v.Date.Value.Date == date);
+                chuyenxeQuery = chuyenxeQuery.Where(v => v.DateStart.HasValue && v.DateStart.Value.Date == date);
             }
 
-            int totalTickets = await veXeQuery.CountAsync();
-            int totalPages = (int)Math.Ceiling(totalTickets / (double)pageSize);
+            int totalItem = await chuyenxeQuery.CountAsync();
+            int totalPages = (int)Math.Ceiling(totalItem / (double)pageSize);
 
-            var pagedTickets = await veXeQuery
-                .OrderBy(v => v.IdTicket)
+            var pagedTickets = await chuyenxeQuery
+                .OrderBy(v => v.IdTrain)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .ToListAsync();
 
-            var viewModel = new TicketListViewModel
+            var viewModel = new TrainListViewModel
             {
-                Tickets = pagedTickets,
+                Trains = pagedTickets,
                 PagingInfo = new PagingSearch
                 {
-                    TotalItems = totalTickets,
+                    TotalItems = totalItem,
                     ItemsPerPage = pageSize,
                     CurrentPage = page
                 }

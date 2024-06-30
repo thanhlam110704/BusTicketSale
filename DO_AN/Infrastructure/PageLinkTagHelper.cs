@@ -13,25 +13,16 @@ namespace SportsStore.Infrastructure
     {
         private IUrlHelperFactory urlHelperFactory;
 
-
-
-
         public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
             urlHelperFactory = helperFactory;
         }
-
-
-
 
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext? ViewContext { get; set; }
         public PagingSearch? PageModel { get; set; }
         public string? PageAction { get; set; }
-
-
-
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {
