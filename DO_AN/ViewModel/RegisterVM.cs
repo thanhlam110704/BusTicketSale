@@ -5,6 +5,7 @@ namespace DO_AN.ViewModel
 {
     public class RegisterVM
     {
+        [Required]
         public string? Phone { get; set; }
         [EmailAddress]
         [Required]

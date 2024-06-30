@@ -40,10 +40,9 @@
                 <div  style="color:white;text-align:center" class="col-1 py-4 px-sm-0">
                     <a href="/Access/Register" style="text-decoration:none" class="lg-a">Liên hệ</a>
                 </div>
-                
+               
                 @if (!string.IsNullOrEmpty(Email))
                 {
-                   
                     <div class="col-3">
                         <div class="action">
                             <div class="profile" onclick="menuToggle();">
@@ -52,7 +51,7 @@
                             <div class="menu">
                                 <ul>
                                     <li>
-                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/Auth/account-circle.svg" /><a href="#">Thông tin tài khoản</a>
+                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/Auth/account-circle.svg" /><a asp-page="/AccountDt/Index" >Thông tin tài khoản</a>
                                     </li>
 
 
@@ -71,17 +70,13 @@
                 else
                 {
                    <div class="col-1">
-
                    </div>
                    <div class="col-2 py-4 lg-box">
-                        <a style="position:absolute;bottom:25%;text-decoration:none;color:black" class="lg-a" href="/Access/Login">Đăng nhập</a>
+                        <a style="position:absolute;bottom:25%;text-decoration:none;color:black" class="lg-a" a asp-action="Login" asp-controller="Access">Đăng nhập</a>
                    </div>
-                   
-                    
-                    
                 }
             </div>
-        </div>
+        </div>  
     </div>
     <div>
         @RenderBody()

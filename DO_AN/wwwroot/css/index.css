@@ -378,7 +378,6 @@ menu li:hover{
   padding: 10px 20px;
   background: #fff;
   width: 200px;
-  box-sizing: 0 5px 25px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   transition: 0.5s;
   visibility: hidden;
