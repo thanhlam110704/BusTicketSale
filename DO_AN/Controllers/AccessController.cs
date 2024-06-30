@@ -81,5 +81,9 @@ namespace DO_AN.Controllers
 
             return RedirectToAction("Login","Access");
         }
+        public IActionResult AccountInfo()
+        {
+            return View();
+        }
     }
 }

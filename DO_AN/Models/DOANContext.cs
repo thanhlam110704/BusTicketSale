@@ -32,7 +32,6 @@ namespace DO_AN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-VHPDFFPP\\SQLEXPRESS;Initial Catalog=DOAN;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
             }
         }
@@ -72,13 +71,11 @@ namespace DO_AN.Models
 
                 entity.ToTable("Coach");
 
-                entity.HasIndex(e => e.IdSeat, "IX_Coach_ID_Seat");
-
                 entity.Property(e => e.IdCoach).HasColumnName("ID_Coach");
 
                 entity.Property(e => e.Category).HasMaxLength(50);
 
-                entity.Property(e => e.IdSeat).HasColumnName("ID_Seat");
+                entity.Property(e => e.IdTrain).HasColumnName("ID_Train");
 
                 entity.Property(e => e.NameCoach)
                     .HasMaxLength(50)
@@ -86,10 +83,10 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.SeatsQuantity).HasColumnName("Seats_Quantity");
 
-                entity.HasOne(d => d.IdSeatNavigation)
+                entity.HasOne(d => d.IdTrainNavigation)
                     .WithMany(p => p.Coaches)
-                    .HasForeignKey(d => d.IdSeat)
-                    .HasConstraintName("FK_Coach_Seat");
+                    .HasForeignKey(d => d.IdTrain)
+                    .HasConstraintName("FK_Coach_Train");
             });
 
             modelBuilder.Entity<Customer>(entity =>
@@ -100,8 +97,6 @@ namespace DO_AN.Models
 
                 entity.HasIndex(e => e.IdAccount, "IX_Customer_ID_Account");
 
-                entity.HasIndex(e => e.IdOrder, "IX_Customer_ID_Order");
-
                 entity.Property(e => e.IdCus).HasColumnName("ID_Cus");
 
                 entity.Property(e => e.FullName)
@@ -110,18 +105,11 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdAccount).HasColumnName("ID_Account");
 
-                entity.Property(e => e.IdOrder).HasColumnName("ID_Order");
-
                 entity.HasOne(d => d.IdAccountNavigation)
                     .WithMany(p => p.Customers)
                     .HasForeignKey(d => d.IdAccount)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Customer_Account");
-
-                entity.HasOne(d => d.IdOrderNavigation)
-                    .WithMany(p => p.Customers)
-                    .HasForeignKey(d => d.IdOrder)
-                    .HasConstraintName("FK_Customer_Order");
             });
 
             modelBuilder.Entity<Discount>(entity =>
@@ -153,11 +141,22 @@ namespace DO_AN.Models
                     .HasColumnType("date")
                     .HasColumnName("Date_Order");
 
+                entity.Property(e => e.IdCus).HasColumnName("ID_Cus");
+
                 entity.Property(e => e.IdDiscount).HasColumnName("ID_Discount");
 
                 entity.Property(e => e.IdTicket).HasColumnName("ID_Ticket");
 
+                entity.Property(e => e.NameCus).HasMaxLength(50);
+
+                entity.Property(e => e.Phone).HasMaxLength(20);
+
                 entity.Property(e => e.UnitPrice).HasColumnName("Unit_Price");
+
+                entity.HasOne(d => d.IdCusNavigation)
+                    .WithMany(p => p.Orders)
+                    .HasForeignKey(d => d.IdCus)
+                    .HasConstraintName("FK_Order_Customer");
 
                 entity.HasOne(d => d.IdDiscountNavigation)
                     .WithMany(p => p.Orders)
@@ -213,9 +212,16 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdSeat).HasColumnName("ID_Seat");
 
+                entity.Property(e => e.IdCoach).HasColumnName("ID_Coach");
+
                 entity.Property(e => e.NameSeat)
                     .HasMaxLength(50)
                     .HasColumnName("Name_Seat");
+
+                entity.HasOne(d => d.IdCoachNavigation)
+                    .WithMany(p => p.Seats)
+                    .HasForeignKey(d => d.IdCoach)
+                    .HasConstraintName("FK_Seat_Coach");
             });
 
             modelBuilder.Entity<Ticket>(entity =>
@@ -255,29 +261,21 @@ namespace DO_AN.Models
 
                 entity.ToTable("Train");
 
-                entity.HasIndex(e => e.IdCoach, "IX_Train_ID_Coach");
-
                 entity.HasIndex(e => e.IdTrainRoute, "IX_Train_ID_TrainRoute");
 
                 entity.Property(e => e.IdTrain).HasColumnName("ID_Train");
 
+                entity.Property(e => e.CoefficientTrain).HasColumnType("decimal(14, 4)");
+
                 entity.Property(e => e.DateStart)
                     .HasColumnType("date")
                     .HasColumnName("Date_Start");
-
-                entity.Property(e => e.IdCoach).HasColumnName("ID_Coach");
 
                 entity.Property(e => e.IdTrainRoute).HasColumnName("ID_TrainRoute");
 
                 entity.Property(e => e.NameTrain)
                     .HasMaxLength(50)
                     .HasColumnName("Name_Train");
-
-                entity.HasOne(d => d.IdCoachNavigation)
-                    .WithMany(p => p.Trains)
-                    .HasForeignKey(d => d.IdCoach)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK_Train_Coach");
 
                 entity.HasOne(d => d.IdTrainRouteNavigation)
                     .WithMany(p => p.Trains)

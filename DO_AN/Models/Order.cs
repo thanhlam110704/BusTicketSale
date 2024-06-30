@@ -7,7 +7,6 @@ namespace DO_AN.Models
     {
         public Order()
         {
-            Customers = new HashSet<Customer>();
             OrderTickets = new HashSet<OrderTicket>();
         }
 
@@ -16,9 +15,12 @@ namespace DO_AN.Models
         public DateTime? DateOrder { get; set; }
         public int IdTicket { get; set; }
         public int? IdDiscount { get; set; }
+        public string? NameCus { get; set; }
+        public string? Phone { get; set; }
+        public int? IdCus { get; set; }
 
+        public virtual Customer? IdCusNavigation { get; set; }
         public virtual Discount? IdDiscountNavigation { get; set; }
-        public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<OrderTicket> OrderTickets { get; set; }
     }
 }

@@ -30,11 +30,11 @@ namespace DO_AN.Controllers
             // Áp dụng các bộ lọc chỉ khi chúng được cung cấp
             if (!string.IsNullOrEmpty(noiDi))
             {
-                veXeQuery = veXeQuery.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.Start_Route.Contains(noiDi));
+                veXeQuery = veXeQuery.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.PointStart.Contains(noiDi));
             }
             if (!string.IsNullOrEmpty(noiDen))
             {
-                veXeQuery = veXeQuery.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.End_Route.Contains(noiDen));
+                veXeQuery = veXeQuery.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.PointEnd.Contains(noiDen));
             }
             if (ngayKhoiHanh.HasValue)
             {
