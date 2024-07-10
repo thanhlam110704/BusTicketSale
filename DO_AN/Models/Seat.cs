@@ -12,7 +12,7 @@ namespace DO_AN.Models
 
         public int IdSeat { get; set; }
         public string? NameSeat { get; set; }
-        public bool? State { get; set; }
+        public bool State { get; set; }
         public int? IdCoach { get; set; }
 
         public virtual Coach? IdCoachNavigation { get; set; }
