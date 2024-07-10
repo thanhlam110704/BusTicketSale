@@ -1,4 +1,5 @@
 ﻿using DO_AN.Models;
+using DO_AN.Services;
 using Microsoft.AspNetCore.Builder.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Train}/{action=SearchTrain}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
     endpoints.MapRazorPages();
 });
 
