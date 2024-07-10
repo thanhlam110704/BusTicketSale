@@ -17,7 +17,7 @@ namespace DO_AN.Models
         public int IdTrainRoute { get; set; }
         public decimal? CoefficientTrain { get; set; }
 
-        public virtual TrainRoute IdTrainRouteNavigation { get; set; } = null!;
+        public virtual TrainRoute IdTrainRouteNavigation { get; set; }
         public virtual ICollection<Coach> Coaches { get; set; }
         public virtual ICollection<Ticket> Tickets { get; set; }
     }

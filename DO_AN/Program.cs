@@ -1,6 +1,10 @@
 ﻿using DO_AN.Models;
 using DO_AN.Services;
+using Microsoft.AspNetCore.Builder.Extensions;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +19,8 @@ builder.Services.AddDbContext<DOANContext>(opts =>
     opts.UseSqlServer(
     builder.Configuration["ConnectionStrings:DoAnConnection"]);
 });
+
+
 var app = builder.Build();
 if (!app.Environment.IsDevelopment())
 {
@@ -33,7 +39,19 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Train}/{action=SearchTrain}/{id?}");
+        pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapRazorPages();
+});
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "areas",
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+
+    endpoints.MapControllerRoute(
+        name: "default",
+        pattern: "{controller=Home}/{action=Index}/{id?}");
     endpoints.MapRazorPages();
 });
 

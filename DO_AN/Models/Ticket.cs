@@ -13,11 +13,11 @@ namespace DO_AN.Models
         public int IdTicket { get; set; }
         public DateTime? Date { get; set; }
         public double? Price { get; set; }
-        public int IdSeat { get; set; }
+        public int IdSeat { get; set; } 
         public int IdTrain { get; set; }
 
-        public virtual Seat IdSeatNavigation { get; set; } = null!;
-        public virtual Train IdTrainNavigation { get; set; } = null!;
+        public virtual Seat IdSeatNavigation { get; set; } 
+        public virtual Train IdTrainNavigation { get; set; }
         public virtual ICollection<OrderTicket> OrderTickets { get; set; }
     }
 }
