@@ -1,4 +1,4 @@
-﻿using DO_AN.ViewModel.PageSearch;
+﻿using DO_AN.ViewModel.Paging;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.AspNetCore.Mvc.Routing;
@@ -13,25 +13,16 @@ namespace SportsStore.Infrastructure
     {
         private IUrlHelperFactory urlHelperFactory;
 
-
-
-
         public PageLinkTagHelper(IUrlHelperFactory helperFactory)
         {
             urlHelperFactory = helperFactory;
         }
-
-
-
 
         [ViewContext]
         [HtmlAttributeNotBound]
         public ViewContext? ViewContext { get; set; }
         public PagingSearch? PageModel { get; set; }
         public string? PageAction { get; set; }
-
-
-
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
         {

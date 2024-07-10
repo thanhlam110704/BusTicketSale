@@ -32,10 +32,9 @@ namespace DO_AN.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Data Source=LAPTOP-VHPDFFPP\\SQLEXPRESS;Initial Catalog=DOAN;Integrated Security=True;Connect Timeout=30;Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False");
-            }
-        }
+                optionsBuilder.UseSqlServer("Data Source=LAPTOP-2S1N06EO;Initial Catalog=DOAN;Integrated Security=True");
 
+        } }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Account>(entity =>
