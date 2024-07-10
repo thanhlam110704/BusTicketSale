@@ -33,6 +33,13 @@
                         </div>
                         
                     </div>
+                    <div class="wrap-input100">
+                        <input class="input100" type="text" asp-for="FullName" placeholder="FullName" />
+                        <div class="lg-failed">
+                            <span asp-validation-for="FullName"></span>
+                        </div>
+
+                    </div>
                     <div class="wrap-input100 validate-input" data-validate="Password is required">
                         <input class="input100" type="password" asp-for="Password" placeholder="Password" />
                         <div class="lg-failed">

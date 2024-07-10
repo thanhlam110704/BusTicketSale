@@ -17,6 +17,14 @@
                         <img src="~/public/account-circle.svg" />
                         <span>Thông tin tài khoản</span>
                     </a>
+                    
+                </div>
+                <div class="menu-info">
+                    <a href="#">
+                        <img src="~/public/account-circle.svg" />
+                        <span>Đổi mật khẩu</span>
+                    </a>
+
                 </div>
                 <div class="menu-info">
                     <a href="#">
@@ -31,7 +39,7 @@
                     </a>
                 </div>
                 <div class="menu-info">
-                    <a href="#">
+                    <a asp-action="Logout" asp-controller="Access">
                         <img src="~/public/logout.svg" />
                         <span>Đăng xuất</span>
                     </a>
@@ -40,11 +48,11 @@
             <div style="margin-left:30px" class="col-8">
                 <form method="post" style="height:100%;width:100%; display: flex; flex-direction: column">
                     <div class="core__Box-sc-1c81tsc-0 iDkvAV">
-                        <span class="core__Text-sc-1c81tsc-1 hDnryH" asp-for="Email">
+                        <span class="core__Text-sc-1c81tsc-1 hDnryH">
                             Email
                             <span style="color: #EB5757">*</span>
                         </span>
-                        <input type="text" class="ant-input" value="@Model.Account.Email">
+                        <input type="text" class="ant-input ant-input-disabled" disabled readonly name="Email" value="@Model.Account?.Email">
                     </div>
 
 
@@ -52,38 +60,38 @@
                         <span class="core__Text-sc-1c81tsc-1 hDnryH">
                             Họ và tên<span style="color: #EB5757">*</span>
                         </span>
-                        <input type="text" class="ant-input">
+                        <input type="text" class="ant-input" name="FullName"value="@Model.Customer?.FullName">
                     </div>
                     <div class="core__Box-sc-1c81tsc-0 iDkvAV">
                         <span class="core__Text-sc-1c81tsc-1 hDnryH">
                             Số điện thoại
                             <span style="color: #EB5757">*</span>
                         </span>
-                        <input readonly="" type="text" class="ant-input" value="Văn">
+                        <input type="text" class="ant-input" name ="Phone"value="@Model.Account?.Phone">
                     </div>
                     <div class="core__Box-sc-1c81tsc-0 iDkvAV">
                         <span class="core__Text-sc-1c81tsc-1 hDnryH">Ngày sinh</span>
                             <div>
-                                <input placeholder="" class="ant-calendar-picker-input ant-input" value="2004-19-11" type="date">
+                            <input type="date" id="dateOfBirth" name="DateOfBirth" class="ant-calendar-picker-input ant-input" value="@Model.Account?.DateOfBirth?.ToString("yyyy-MM-dd")" />
                             </div>
                     </div>
                     <div class="core__Box-sc-1c81tsc-0 iDkvAV">
                         <span class="core__Text-sc-1c81tsc-1 hDnryH">Giới tính</span>
                         <div class="radio__group">
                             <div class="radio__button">
-                                <input type="radio" id="type3" name="type" value="female">
-                                <label data-icon="L" for="type3">
+                                <input type="radio" id="male" name="Sex" value="true" @(Model.Account?.Sex == true ? "checked" : "")>
+                                <label for="male">
                                     <p>Nam</p>
                                 </label>
                             </div>
                             <div class="radio__button">
-                                <input type="radio" id="type4" name="type" value="male">
-                                <label data-icon="XL" for="type4"><p>Nữ</p></label>
+                                <input type="radio" id="female" name="Sex" value="false" @(Model.Account?.Sex == false ? "checked" : "")>
+                                <label for="female"><p>Nữ</p></label>
                             </div>
                         </div>
                     </div>
                     <div class="core__Box-sc-1c81tsc-0 geRRnr">
-                        <button style="width:100%;height:100%" disabled="" type="submit" class="btn-primary">
+                        <button style="width:100%;height:100%" type="submit" class="ant-btn-primary">
                             <span>Lưu</span>
                         </button>
                     </div>

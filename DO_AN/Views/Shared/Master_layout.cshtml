@@ -2,6 +2,7 @@
 @{
     var httpContext = HttpContextAccessor.HttpContext;
     var Email = httpContext.Session.GetString("UserSession");
+    var ID = httpContext.Session.GetInt32("UserID");
 }
 <!DOCTYPE html>
 <html>
@@ -51,7 +52,7 @@
                             <div class="menu">
                                 <ul>
                                     <li>
-                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/Auth/account-circle.svg" /><a asp-page="/AccountDt/Index" >Thông tin tài khoản</a>
+                                        <img src="https://229a2c9fe669f7b.cmccloud.com.vn/images/Auth/account-circle.svg" /><a asp-page="/AccountDt/Index" asp-route-id=@ID>Thông tin tài khoản</a>
                                     </li>
 
 
