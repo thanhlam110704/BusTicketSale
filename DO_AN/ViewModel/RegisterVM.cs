@@ -10,6 +10,7 @@ namespace DO_AN.ViewModel
         [EmailAddress]
         [Required]
         public string Email { get; set; } = null!;
+        public string? FullName { get; set; }
         [DataType(DataType.Password)]
         public string Password { get; set; } = null!;
         [DataType(DataType.Password)]

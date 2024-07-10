@@ -38,53 +38,17 @@ namespace DO_AN.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Seat",
-                columns: table => new
-                {
-                    ID_Seat = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_Seat = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    State = table.Column<bool>(type: "bit", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Seat", x => x.ID_Seat);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "TrainRoute",
                 columns: table => new
                 {
                     ID_TrainRoute = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_TrainRoute = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
                     Point_Start = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
                     Point_End = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TrainRoute", x => x.ID_TrainRoute);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Order",
-                columns: table => new
-                {
-                    ID_Order = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Unit_Price = table.Column<double>(type: "float", nullable: true),
-                    Date_Order = table.Column<DateTime>(type: "date", nullable: true),
-                    ID_Ticket = table.Column<int>(type: "int", nullable: false),
-                    ID_Discount = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Order", x => x.ID_Order);
-                    table.ForeignKey(
-                        name: "FK_Order_Discount",
-                        column: x => x.ID_Discount,
-                        principalTable: "Discount",
-                        principalColumn: "ID_Discount");
                 });
 
             migrationBuilder.CreateTable(
@@ -111,24 +75,24 @@ namespace DO_AN.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coach",
+                name: "Train",
                 columns: table => new
                 {
-                    ID_Coach = table.Column<int>(type: "int", nullable: false)
+                    ID_Train = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_Coach = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Seats_Quantity = table.Column<int>(type: "int", nullable: true),
-                    ID_Seat = table.Column<int>(type: "int", nullable: true)
+                    Name_Train = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Date_Start = table.Column<DateTime>(type: "date", nullable: true),
+                    ID_TrainRoute = table.Column<int>(type: "int", nullable: false),
+                    CoefficientTrain = table.Column<decimal>(type: "decimal(14,4)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coach", x => x.ID_Coach);
+                    table.PrimaryKey("PK_Train", x => x.ID_Train);
                     table.ForeignKey(
-                        name: "FK_Coach_Seat",
-                        column: x => x.ID_Seat,
-                        principalTable: "Seat",
-                        principalColumn: "ID_Seat");
+                        name: "FK_Train_TrainRoute",
+                        column: x => x.ID_TrainRoute,
+                        principalTable: "TrainRoute",
+                        principalColumn: "ID_TrainRoute");
                 });
 
             migrationBuilder.CreateTable(
@@ -138,8 +102,7 @@ namespace DO_AN.Migrations
                     ID_Cus = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Full_Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    ID_Account = table.Column<int>(type: "int", nullable: false),
-                    ID_Order = table.Column<int>(type: "int", nullable: true)
+                    ID_Account = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -149,37 +112,77 @@ namespace DO_AN.Migrations
                         column: x => x.ID_Account,
                         principalTable: "Account",
                         principalColumn: "ID_Account");
-                    table.ForeignKey(
-                        name: "FK_Customer_Order",
-                        column: x => x.ID_Order,
-                        principalTable: "Order",
-                        principalColumn: "ID_Order");
                 });
 
             migrationBuilder.CreateTable(
-                name: "Train",
+                name: "Coach",
                 columns: table => new
                 {
-                    ID_Train = table.Column<int>(type: "int", nullable: false)
+                    ID_Coach = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name_Train = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    Date_Start = table.Column<DateTime>(type: "date", nullable: true),
-                    ID_Coach = table.Column<int>(type: "int", nullable: false),
-                    ID_TrainRoute = table.Column<int>(type: "int", nullable: false)
+                    Name_Coach = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Category = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Seats_Quantity = table.Column<int>(type: "int", nullable: true),
+                    BasicPrice = table.Column<double>(type: "float", nullable: true),
+                    ID_Train = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Train", x => x.ID_Train);
+                    table.PrimaryKey("PK_Coach", x => x.ID_Coach);
                     table.ForeignKey(
-                        name: "FK_Train_Coach",
+                        name: "FK_Coach_Train",
+                        column: x => x.ID_Train,
+                        principalTable: "Train",
+                        principalColumn: "ID_Train");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Order",
+                columns: table => new
+                {
+                    ID_Order = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Unit_Price = table.Column<double>(type: "float", nullable: true),
+                    Date_Order = table.Column<DateTime>(type: "date", nullable: true),
+                    ID_Ticket = table.Column<int>(type: "int", nullable: false),
+                    ID_Discount = table.Column<int>(type: "int", nullable: true),
+                    NameCus = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    ID_Cus = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Order", x => x.ID_Order);
+                    table.ForeignKey(
+                        name: "FK_Order_Customer",
+                        column: x => x.ID_Cus,
+                        principalTable: "Customer",
+                        principalColumn: "ID_Cus");
+                    table.ForeignKey(
+                        name: "FK_Order_Discount",
+                        column: x => x.ID_Discount,
+                        principalTable: "Discount",
+                        principalColumn: "ID_Discount");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Seat",
+                columns: table => new
+                {
+                    ID_Seat = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name_Seat = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
+                    State = table.Column<bool>(type: "bit", nullable: true),
+                    ID_Coach = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Seat", x => x.ID_Seat);
+                    table.ForeignKey(
+                        name: "FK_Seat_Coach",
                         column: x => x.ID_Coach,
                         principalTable: "Coach",
                         principalColumn: "ID_Coach");
-                    table.ForeignKey(
-                        name: "FK_Train_TrainRoute",
-                        column: x => x.ID_TrainRoute,
-                        principalTable: "TrainRoute",
-                        principalColumn: "ID_TrainRoute");
                 });
 
             migrationBuilder.CreateTable(
@@ -238,9 +241,9 @@ namespace DO_AN.Migrations
                 column: "ID_Role");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coach_ID_Seat",
+                name: "IX_Coach_ID_Train",
                 table: "Coach",
-                column: "ID_Seat");
+                column: "ID_Train");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customer_ID_Account",
@@ -248,9 +251,9 @@ namespace DO_AN.Migrations
                 column: "ID_Account");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customer_ID_Order",
-                table: "Customer",
-                column: "ID_Order");
+                name: "IX_Order_ID_Cus",
+                table: "Order",
+                column: "ID_Cus");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Order_ID_Discount",
@@ -268,6 +271,11 @@ namespace DO_AN.Migrations
                 column: "ID_Ticket");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Seat_ID_Coach",
+                table: "Seat",
+                column: "ID_Coach");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Ticket_ID_Seat",
                 table: "Ticket",
                 column: "ID_Seat");
@@ -278,11 +286,6 @@ namespace DO_AN.Migrations
                 column: "ID_Train");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Train_ID_Coach",
-                table: "Train",
-                column: "ID_Coach");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Train_ID_TrainRoute",
                 table: "Train",
                 column: "ID_TrainRoute");
@@ -291,13 +294,7 @@ namespace DO_AN.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Customer");
-
-            migrationBuilder.DropTable(
                 name: "Order_Ticket");
-
-            migrationBuilder.DropTable(
-                name: "Account");
 
             migrationBuilder.DropTable(
                 name: "Order");
@@ -306,22 +303,28 @@ namespace DO_AN.Migrations
                 name: "Ticket");
 
             migrationBuilder.DropTable(
-                name: "Role");
+                name: "Customer");
 
             migrationBuilder.DropTable(
                 name: "Discount");
 
             migrationBuilder.DropTable(
-                name: "Train");
+                name: "Seat");
+
+            migrationBuilder.DropTable(
+                name: "Account");
 
             migrationBuilder.DropTable(
                 name: "Coach");
 
             migrationBuilder.DropTable(
-                name: "TrainRoute");
+                name: "Role");
 
             migrationBuilder.DropTable(
-                name: "Seat");
+                name: "Train");
+
+            migrationBuilder.DropTable(
+                name: "TrainRoute");
         }
     }
 }

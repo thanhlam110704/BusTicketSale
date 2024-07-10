@@ -35,6 +35,7 @@ body {
     -webkit-font-feature-settings: "tnum";
     font-feature-settings: "tnum";
 }
+
 .ant-input {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -79,4 +80,26 @@ body {
     height:60px;
 }
 
+input:focus {
+    box-shadow: 0 0 3px 1px #0074D9;
+    outline:#3b77f2;
+}
+.ant-btn-primary {
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, .12);
+    -webkit-box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, .045);
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
+.ant-input[disabled] {
+    cursor: not-allowed;
+    opacity: 1;
+}
+button:hover {
+    box-shadow: 0px 0px 10px 0px rgba(52, 152, 219, 0.7);
+    background-color: #4F94CD;
+}

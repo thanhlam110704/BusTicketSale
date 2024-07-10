@@ -71,13 +71,16 @@ namespace DO_AN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdCoach"), 1L, 1);
 
+                    b.Property<double?>("BasicPrice")
+                        .HasColumnType("float");
+
                     b.Property<string>("Category")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int?>("IdSeat")
+                    b.Property<int?>("IdTrain")
                         .HasColumnType("int")
-                        .HasColumnName("ID_Seat");
+                        .HasColumnName("ID_Train");
 
                     b.Property<string>("NameCoach")
                         .HasMaxLength(50)
@@ -90,7 +93,7 @@ namespace DO_AN.Migrations
 
                     b.HasKey("IdCoach");
 
-                    b.HasIndex(new[] { "IdSeat" }, "IX_Coach_ID_Seat");
+                    b.HasIndex("IdTrain");
 
                     b.ToTable("Coach", (string)null);
                 });
@@ -113,15 +116,9 @@ namespace DO_AN.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_Account");
 
-                    b.Property<int?>("IdOrder")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Order");
-
                     b.HasKey("IdCus");
 
                     b.HasIndex(new[] { "IdAccount" }, "IX_Customer_ID_Account");
-
-                    b.HasIndex(new[] { "IdOrder" }, "IX_Customer_ID_Order");
 
                     b.ToTable("Customer", (string)null);
                 });
@@ -166,6 +163,10 @@ namespace DO_AN.Migrations
                         .HasColumnType("date")
                         .HasColumnName("Date_Order");
 
+                    b.Property<int?>("IdCus")
+                        .HasColumnType("int")
+                        .HasColumnName("ID_Cus");
+
                     b.Property<int?>("IdDiscount")
                         .HasColumnType("int")
                         .HasColumnName("ID_Discount");
@@ -174,11 +175,21 @@ namespace DO_AN.Migrations
                         .HasColumnType("int")
                         .HasColumnName("ID_Ticket");
 
+                    b.Property<string>("NameCus")
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Phone")
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<double?>("UnitPrice")
                         .HasColumnType("float")
                         .HasColumnName("Unit_Price");
 
                     b.HasKey("IdOrder");
+
+                    b.HasIndex("IdCus");
 
                     b.HasIndex("IdDiscount");
 
@@ -240,6 +251,10 @@ namespace DO_AN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdSeat"), 1L, 1);
 
+                    b.Property<int?>("IdCoach")
+                        .HasColumnType("int")
+                        .HasColumnName("ID_Coach");
+
                     b.Property<string>("NameSeat")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)")
@@ -249,6 +264,8 @@ namespace DO_AN.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("IdSeat");
+
+                    b.HasIndex("IdCoach");
 
                     b.ToTable("Seat", (string)null);
                 });
@@ -294,13 +311,12 @@ namespace DO_AN.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTrain"), 1L, 1);
 
+                    b.Property<decimal?>("CoefficientTrain")
+                        .HasColumnType("decimal(14,4)");
+
                     b.Property<DateTime?>("DateStart")
                         .HasColumnType("date")
                         .HasColumnName("Date_Start");
-
-                    b.Property<int>("IdCoach")
-                        .HasColumnType("int")
-                        .HasColumnName("ID_Coach");
 
                     b.Property<int>("IdTrainRoute")
                         .HasColumnType("int")
@@ -312,8 +328,6 @@ namespace DO_AN.Migrations
                         .HasColumnName("Name_Train");
 
                     b.HasKey("IdTrain");
-
-                    b.HasIndex(new[] { "IdCoach" }, "IX_Train_ID_Coach");
 
                     b.HasIndex(new[] { "IdTrainRoute" }, "IX_Train_ID_TrainRoute");
 
@@ -328,11 +342,6 @@ namespace DO_AN.Migrations
                         .HasColumnName("ID_TrainRoute");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IdTrainRoute"), 1L, 1);
-
-                    b.Property<string>("NameTrainRoute")
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
-                        .HasColumnName("Name_TrainRoute");
 
                     b.Property<string>("PointEnd")
                         .HasMaxLength(30)
@@ -362,12 +371,12 @@ namespace DO_AN.Migrations
 
             modelBuilder.Entity("DO_AN.Models.Coach", b =>
                 {
-                    b.HasOne("DO_AN.Models.Seat", "IdSeatNavigation")
+                    b.HasOne("DO_AN.Models.Train", "IdTrainNavigation")
                         .WithMany("Coaches")
-                        .HasForeignKey("IdSeat")
-                        .HasConstraintName("FK_Coach_Seat");
+                        .HasForeignKey("IdTrain")
+                        .HasConstraintName("FK_Coach_Train");
 
-                    b.Navigation("IdSeatNavigation");
+                    b.Navigation("IdTrainNavigation");
                 });
 
             modelBuilder.Entity("DO_AN.Models.Customer", b =>
@@ -378,22 +387,22 @@ namespace DO_AN.Migrations
                         .IsRequired()
                         .HasConstraintName("FK_Customer_Account");
 
-                    b.HasOne("DO_AN.Models.Order", "IdOrderNavigation")
-                        .WithMany("Customers")
-                        .HasForeignKey("IdOrder")
-                        .HasConstraintName("FK_Customer_Order");
-
                     b.Navigation("IdAccountNavigation");
-
-                    b.Navigation("IdOrderNavigation");
                 });
 
             modelBuilder.Entity("DO_AN.Models.Order", b =>
                 {
+                    b.HasOne("DO_AN.Models.Customer", "IdCusNavigation")
+                        .WithMany("Orders")
+                        .HasForeignKey("IdCus")
+                        .HasConstraintName("FK_Order_Customer");
+
                     b.HasOne("DO_AN.Models.Discount", "IdDiscountNavigation")
                         .WithMany("Orders")
                         .HasForeignKey("IdDiscount")
                         .HasConstraintName("FK_Order_Discount");
+
+                    b.Navigation("IdCusNavigation");
 
                     b.Navigation("IdDiscountNavigation");
                 });
@@ -417,6 +426,16 @@ namespace DO_AN.Migrations
                     b.Navigation("IdTicketNavigation");
                 });
 
+            modelBuilder.Entity("DO_AN.Models.Seat", b =>
+                {
+                    b.HasOne("DO_AN.Models.Coach", "IdCoachNavigation")
+                        .WithMany("Seats")
+                        .HasForeignKey("IdCoach")
+                        .HasConstraintName("FK_Seat_Coach");
+
+                    b.Navigation("IdCoachNavigation");
+                });
+
             modelBuilder.Entity("DO_AN.Models.Ticket", b =>
                 {
                     b.HasOne("DO_AN.Models.Seat", "IdSeatNavigation")
@@ -438,19 +457,11 @@ namespace DO_AN.Migrations
 
             modelBuilder.Entity("DO_AN.Models.Train", b =>
                 {
-                    b.HasOne("DO_AN.Models.Coach", "IdCoachNavigation")
-                        .WithMany("Trains")
-                        .HasForeignKey("IdCoach")
-                        .IsRequired()
-                        .HasConstraintName("FK_Train_Coach");
-
                     b.HasOne("DO_AN.Models.TrainRoute", "IdTrainRouteNavigation")
                         .WithMany("Trains")
                         .HasForeignKey("IdTrainRoute")
                         .IsRequired()
                         .HasConstraintName("FK_Train_TrainRoute");
-
-                    b.Navigation("IdCoachNavigation");
 
                     b.Navigation("IdTrainRouteNavigation");
                 });
@@ -462,7 +473,12 @@ namespace DO_AN.Migrations
 
             modelBuilder.Entity("DO_AN.Models.Coach", b =>
                 {
-                    b.Navigation("Trains");
+                    b.Navigation("Seats");
+                });
+
+            modelBuilder.Entity("DO_AN.Models.Customer", b =>
+                {
+                    b.Navigation("Orders");
                 });
 
             modelBuilder.Entity("DO_AN.Models.Discount", b =>
@@ -472,8 +488,6 @@ namespace DO_AN.Migrations
 
             modelBuilder.Entity("DO_AN.Models.Order", b =>
                 {
-                    b.Navigation("Customers");
-
                     b.Navigation("OrderTickets");
                 });
 
@@ -484,8 +498,6 @@ namespace DO_AN.Migrations
 
             modelBuilder.Entity("DO_AN.Models.Seat", b =>
                 {
-                    b.Navigation("Coaches");
-
                     b.Navigation("Tickets");
                 });
 
@@ -496,6 +508,8 @@ namespace DO_AN.Migrations
 
             modelBuilder.Entity("DO_AN.Models.Train", b =>
                 {
+                    b.Navigation("Coaches");
+
                     b.Navigation("Tickets");
                 });
 
