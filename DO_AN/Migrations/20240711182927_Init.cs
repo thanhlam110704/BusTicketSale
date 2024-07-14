@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DO_AN.Migrations
 {
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,8 +43,8 @@ namespace DO_AN.Migrations
                 {
                     ID_TrainRoute = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Point_Start = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true),
-                    Point_End = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: true)
+                    Point_Start = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false),
+                    Point_End = table.Column<string>(type: "nvarchar(30)", maxLength: 30, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -62,7 +62,8 @@ namespace DO_AN.Migrations
                     Password = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Sex = table.Column<bool>(type: "bit", nullable: true),
                     DateOfBirth = table.Column<DateTime>(type: "date", nullable: true),
-                    ID_Role = table.Column<int>(type: "int", nullable: false)
+                    ID_Role = table.Column<int>(type: "int", nullable: false),
+                    StateAccount = table.Column<bool>(type: "bit", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -172,7 +173,7 @@ namespace DO_AN.Migrations
                     ID_Seat = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name_Seat = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: true),
-                    State = table.Column<bool>(type: "bit", nullable: true),
+                    State = table.Column<bool>(type: "bit", nullable: false),
                     ID_Coach = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

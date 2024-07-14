@@ -5,22 +5,13 @@
     </div>
     <div class="card-body">
         <form id="filterForm" asp-controller="Train" asp-action="SearchTrain" method="get" style="width:auto">
-            <div class="filter-group">
-                <div class="filter-title">
-                    <p>Giờ đi</p>
-                </div>
-                <div class="input-group">
-                    <input type="text" class="form-control" name="startTime" value="00:00" style="height:max-content;text-align: center;">
-                    <span class="input-group-text">đến</span>
-                    <input type="text" class="form-control" name="endTime" value="24:00" style="height:max-content;text-align: center;">
-                </div>
-            </div>
+           
 
             <div class="filter-group mt-3">
                 <div class="filter-title">
                     <p>Nơi đi</p>
                 </div>
-                <select class="form-select" id="startRoute" name="startRoute" onchange="submitFilterForm()">
+                <select class="form-select" id="startRoute" name="noiDi" onchange="submitFilterForm()">
                     <option value="" selected>Mặc Định</option>
                     @foreach (var route in Model.TrainRoutes)
                     {
@@ -33,7 +24,7 @@
                 <div class="filter-title">
                     <p>Nơi đến</p>
                 </div>
-                <select class="form-select" id="endRoute" name="endRoute" onchange="submitFilterForm()">
+                <select class="form-select" id="endRoute" name="noiDen" onchange="submitFilterForm()">
                     <option value="" selected>Mặc Định</option>
                     @foreach (var route in Model.TrainRoutes)
                     {
@@ -48,10 +39,7 @@
                 </div>
                 <select class="form-select" id="vehicleType" name="vehicleType" onchange="submitFilterForm()">
                     <option value="" selected>Mặc Định</option>
-                    @* @foreach (var vehicleType in Model.VehicleTypes)
-                    {
-                    <option value="@vehicleType.Id">@vehicleType.Name</option>
-                    } *@
+                    <!-- Add options dynamically if needed -->
                 </select>
             </div>
         </form>
@@ -60,15 +48,15 @@
 
 <style>
     .filter-title p {
-        margin-bottom: 0px;
+        margin-bottom: 0;
     }
 
     .form-select {
-        color: gray;
+        color: gray; /* Default text color for selects */
     }
 
         .form-select option {
-            color: black;
+            color: black; /* Customize option text color if necessary */
         }
 </style>
 
@@ -77,7 +65,7 @@
         const startRoute = document.getElementById('startRoute').value;
         const endRoute = document.getElementById('endRoute').value;
 
-        // Tạo chuỗi truy vấn URL với các bộ lọc đã chọn
+        // Build query string URL with selected filters
         let queryString = "";
         if (startRoute) {
             queryString += `noiDi=${startRoute}`;
@@ -86,19 +74,19 @@
             queryString += (queryString.length > 0 ? '&' : '') + `noiDen=${endRoute}`;
         }
 
-        // Gửi yêu cầu GET đến TrainController với các tham số truy vấn
+        // Send GET request to TrainController with query parameters
         fetch(`/Train/SearchTrain?${queryString}`, {
             method: 'GET'
         }).then(response => {
-            // Xử lý kết quả nếu cần
             console.log('Redirecting to:', response.url);
-            window.location.href = response.url; // Chuyển hướng đến URL được phản hồi từ server
+            window.location.href = response.url; // Redirect to the URL responded by server
         }).catch(error => {
             console.error('Error:', error);
         });
     }
 
     function clearFilters() {
+        // Clear selected filters and submit form
         document.getElementById('startRoute').value = '';
         document.getElementById('endRoute').value = '';
         document.getElementById('vehicleType').value = '';

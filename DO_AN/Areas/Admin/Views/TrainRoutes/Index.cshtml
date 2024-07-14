@@ -1,0 +1,46 @@
+﻿@model IEnumerable<DO_AN.Models.TrainRoute>
+
+@{
+    ViewData["Title"] = "Danh sách tuyến đường";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int i = 0; // Initialize the counter for numbering rows
+}
+
+<div class="container">
+    <h1 class="my-4">Danh sách tuyến đường</h1>
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Tạo mới</a>
+    </p>
+
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Điểm đi</th>
+                    <th scope="col">Điểm đến</th>
+                    <th scope="col">Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th scope="row">
+                            @{
+                                i = i + 1;
+                            } @i
+                        </th>
+                        <td>@Html.DisplayFor(modelItem => item.PointStart)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PointEnd)</td>
+                        <td>
+                            <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.IdTrainRoute">Sửa</a>
+                            <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdTrainRoute">Xóa</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

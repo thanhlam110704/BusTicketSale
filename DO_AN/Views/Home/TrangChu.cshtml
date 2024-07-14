@@ -1,82 +1,106 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+<style>
+    .btn {
+        background-color: #ffc107; /* 100% */
+        border: none;
+        color: #343a40;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        cursor: pointer;
+        font-size: 16px;
+        padding: 12px 25px;
+        border-radius: 5px;
+        margin-top: 5px; /* Khoảng cách với ô nhập */
+    }
+
+        .btn:hover {
+            background-color: #e0a800;
+        }
+
+    .autocomplete-suggestions {
+        position: absolute;
+        z-index: 1000;
+        width: 226px; /* Để gợi ý chiếm full width ô nhập, trừ đi viền 1px từ hai bên */
+        background: #fff;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px; /* Bo tròn gợi ý */
+        /* margin-top: 5px; */ /* Khoảng cách với ô nhập */
+    }
+
+    .autocomplete-item {
+        padding: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+        .autocomplete-item:hover {
+            background: #f0f0f0;
+        }
+</style>
+
 <div class="leader-board">
     <div class="title">
         Vexere - Cam kết hoàn 150% nếu nhà xe không cung cấp dịch vụ vận chuyển
     </div>
     <div class="container search">
 
-        <div class="row">
-            <div class="col-3">
+        <div style="display:flex">
+            <div class="col-2">
             </div>
-            <div class="col-6">
-                <div class="row">
-
-                    <div class="col-5 noidi">
-                        <div class="text-diadiem">Nơi Đi</div>
-                        <select class="select-diadiem-noidi">
-                            <option value="HN">Hà Nội</option>
-                            <option value="TPHCM">TPHCM</option>
-                            <option value="DaNang">Đà Nẵng</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                        </select>
-                    </div>
-
-                    <div class="col-5 noiden">
-                        <div class="text-diadiem">Nơi Đến</div>
-                        <select class="select-diadiem-noiden">
-                            <option value="HN">Ha Noi</option>
-                            <option value="TPHCM">TPHCM</option>
-                            <option value="Da Nang">Da Nang</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                            <option value="HN">Ha Noi</option>
-                        </select>
-                    </div>
-                    <div class="col-2 btn btn-warning" style="height:50px;margin-top:22px;align-content:center;border-radius:10px">
-                        <div>
-                            <a class="timve" style="color:black;font-weight:1000;text-decoration:none" asp-action="SearchTrain" asp-controller="Train">Tìm kiếm</a>
+            <div class="col-8">
+                <div style="width:100%">
+                    <form asp-controller="Train" asp-action="SearchTrain" method="get" style="width:auto">
+                        <div style=" display:flex; gap:20px;justify-content:center; align-items:center">
+                            <div class="col-lg-3">
+                                <input type="text" style="margin-bottom:0px;height: 50px;" class="form-control" name="noiDi" placeholder="Nơi đi" value="@ViewBag.NoiDi" autocomplete="off">
+                                <div id="noiDiSuggestions" class="autocomplete-suggestions"></div>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="text" style="margin-bottom:0px;height: 50px;" class="form-control" name="noiDen" placeholder="Nơi đến" value="@ViewBag.NoiDen" autocomplete="off">
+                                <div id="noiDiSuggestions" class="autocomplete-suggestions"></div>
+                            </div>
+                            <div class="col-lg-3">
+                                <input type="date" style="margin-bottom:0px;height: 50px;" class="form-control" name="ngayKhoiHanh" placeholder="Ngày khởi hành" value="@ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd")" autocomplete="off">
+                            </div>
+                            <div style=" display: flex; justify-content: center;">
+                                <button type="submit" class="btn " style="margin-top:0px">Tìm kiếm</button>
+                            </div>
                         </div>
+                    </form>
 
-                    </div>
                 </div>
             </div>
-            <div class="col-3">
+            <div class="col-2">
             </div>
         </div>
     </div>
 </div>
-    <div class="container">
-        <h4 class="popular">Tuyến đường phổ biến </h4>
-        <div class="row list-popular">
+<div class="container">
+    <h4 class="popular">Tuyến đường phổ biến </h4>
+    <div class="row list-popular">
         <div class="ant-carousel">
             <div class="slick-list">
                 <div class="slick-track" style="width: 1960px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
                     <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 245px;">
                         <div class="a-dcrt-none">
                             <a tabindex="-1" style="width:100%;display:inline-block" class="PopularRoute__Card-sc-3v0dez-2 hFSNuA">
-                            <div class="image-container">
-                                <img class=" ls-is-cached lazyloaded" data-src="https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/5/img_hero.png?v1" src="https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/5/img_hero.png?v1" alt="item-popular-route" width="233" height="116">
-                            </div>
+                                <div class="image-container">
+                                    <img class=" ls-is-cached lazyloaded" data-src="https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/5/img_hero.png?v1" src="https://f1e425bd6cd9ac6.cmccloud.com.vn/cms-tool/destination/images/5/img_hero.png?v1" alt="item-popular-route" width="233" height="116">
+                                </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 cclBUT">
                                     <div class="card-content-title">Sài Gòn - Nha Trang</div>
-                                    <div class="card-content-fare">Từ 200.000đ
+                                    <div class="card-content-fare">
+                                        Từ 200.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
-                                    
+
                                 </div>
                             </a>
-                         </div>
+                        </div>
                     </div>
-                    
+
                     <div data-index="1" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none; width: 245px;">
                         <div class="a-dcrt-none">
                             <a tabindex="-1" style="width:100%;display:inline-block" class="PopularRoute__Card-sc-3v0dez-2 hFSNuA ">
@@ -85,10 +109,11 @@
                                 </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 bvkSHW">
                                     <div class="card-content-title">Hà Nội - Hải Phòng</div>
-                                    <div class="card-content-fare">Từ 100.000đ
+                                    <div class="card-content-fare">
+                                        Từ 100.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
-                                    
+
                                 </div>
                             </a>
                         </div>
@@ -101,7 +126,8 @@
                                 </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 epxwNO">
                                     <div class="card-content-title">Sài Gòn - Đà Lạt  </div>
-                                    <div class="card-content-fare">Từ 160.000đ
+                                    <div class="card-content-fare">
+                                        Từ 160.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
                                 </div>
@@ -116,7 +142,8 @@
                                 </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 bLhVej">
                                     <div class="card-content-title">Sài Gòn - Phan Thiết  </div>
-                                    <div class="card-content-fare">Từ 150.000đ
+                                    <div class="card-content-fare">
+                                        Từ 150.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
                                 </div>
@@ -131,7 +158,8 @@
                                 </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 bvkSHW">
                                     <div class="card-content-title">Sài Gòn - Phan Rang </div>
-                                    <div class="card-content-fare">Từ 180.000đ
+                                    <div class="card-content-fare">
+                                        Từ 180.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
                                 </div>
@@ -146,7 +174,8 @@
                                 </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 bNhMQq">
                                     <div class="card-content-title">Sài Gòn - Vũng Tàu  </div>
-                                    <div class="card-content-fare">Từ 150.000đ
+                                    <div class="card-content-fare">
+                                        Từ 150.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
                                 </div>
@@ -161,7 +190,8 @@
                                 </div>
                                 <div selected="" class="PopularRoute__CartContent-sc-3v0dez-3 qYPaV">
                                     <div class="card-content-title">Sài Gòn - Nha Trang </div>
-                                    <div class="card-content-fare">Từ 200.000đ
+                                    <div class="card-content-fare">
+                                        Từ 200.000đ
                                         <div class="card-content-fare-origin">320.000đ</div>
                                     </div>
                                 </div>
@@ -185,13 +215,9 @@
                 </div>
             </div>
         </div>
-     </div>
-        
     </div>
 
-
-
-
+</div>
 
 <h4 class="title-4" style="text-align:center">HỆ THỐNG VÉ XE KHÁCH LỚN NHẤT VIỆT NAM</h4>
 <br />
@@ -257,3 +283,49 @@
 </div>
 <br />
 <br />
+
+@* <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const createAutocomplete = (inputId, suggestionsId, apiEndpoint) => {
+            const input = document.getElementById(inputId);
+            const suggestions = document.getElementById(suggestionsId);
+
+            input.addEventListener("input", async function () {
+                const term = input.value;
+
+                const response = await fetch(`/api/Train/${apiEndpoint}?term=${term}`);
+                const data = await response.json();
+
+                suggestions.innerHTML = data.map(item => `<div class="autocomplete-item">${item}</div>`).join("");
+
+                suggestions.querySelectorAll('.autocomplete-item').forEach(item => {
+                    item.addEventListener("click", function () {
+                        input.value = this.textContent;
+                        suggestions.innerHTML = "";
+                    });
+                });
+            });
+
+            document.addEventListener("click", function (e) {
+                if (!input.contains(e.target) && !suggestions.contains(e.target)) {
+                    suggestions.innerHTML = "";
+                }
+            });
+        };
+
+        createAutocomplete("noiDi", "noiDiSuggestions", "GetStartPoints");
+        createAutocomplete("noiDen", "noiDenSuggestions", "GetEndPoints");
+    });
+    function validateForm() {
+        const noiDi = document.getElementById('noiDi').value;
+        const noiDen = document.getElementById('noiDen').value;
+
+        // Validate at least one of noiDi or noiDen is not empty
+        if (noiDi.trim() === '' && noiDen.trim() === '') {
+            alert('Vui lòng nhập ít nhất một trong các trường Nơi đi hoặc Nơi đến');
+            return false;
+        }
+
+        return true;
+    }
+</script> *@

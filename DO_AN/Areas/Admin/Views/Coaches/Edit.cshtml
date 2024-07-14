@@ -1,0 +1,54 @@
+﻿@model DO_AN.Models.Coach
+
+@{
+    ViewData["Title"] = "Edit Coach";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h1 class="text-center my-4">Edit Coach</h1>
+
+<div class="card mx-auto" style="max-width: 600px;">
+    <div class="card-body">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <input type="hidden" asp-for="IdCoach" />
+
+            <div class="mb-3">
+                <label asp-for="NameCoach" class="form-label">Coach Name</label>
+                <input asp-for="NameCoach" class="form-control" />
+                <span asp-validation-for="NameCoach" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Category" class="form-label">Category</label>
+                <input asp-for="Category" class="form-control" />
+                <span asp-validation-for="Category" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="SeatsQuantity" class="form-label">Seats Quantity</label>
+                <input asp-for="SeatsQuantity" class="form-control" />
+                <span asp-validation-for="SeatsQuantity" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="BasicPrice" class="form-label">Basic Price</label>
+                <input asp-for="BasicPrice" class="form-control" />
+                <span asp-validation-for="BasicPrice" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="IdTrain" class="form-label">Train</label>
+                <select asp-for="IdTrain" class="form-control" asp-items="ViewBag.IdTrain"></select>
+                <span asp-validation-for="IdTrain" class="text-danger"></span>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Save</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+

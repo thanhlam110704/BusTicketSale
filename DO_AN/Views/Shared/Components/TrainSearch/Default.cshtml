@@ -9,12 +9,13 @@
         text-decoration: none;
         border: 1px solid #ccc;
         margin: 0 2px;
+        color: #000
     }
 
         .pagination a.active {
-            background-color: #007bff;
+            background-color: #ffc107;
             color: white;
-            border-color: #007bff;
+            border-color: #ffc107;
         }
 
     .ticket-container {
@@ -49,7 +50,7 @@
     }
 
     .highlight {
-        color: #007bff;
+        color: #000;
         font-weight: bold;
         font-size: 1.2em;
     }
@@ -77,16 +78,16 @@
 
 <div class="ticket-container">
     <!-- Ticket list -->
-    @foreach (var veXe in Model.Trains)
+    @foreach (var xeKhach in Model.coaches)
     {
         <div class="ticket" style="max-width:none">
             <div class="d-flex justify-content-between">
                 <div class="ticket-info">
-                    <h5>Vé số @veXe.IdTrain</h5>
+                    <h5>Vé số @xeKhach.IdCoach</h5>
                     <div class="d-flex justify-content-between">
-                        <h4 class="highlight-location">@veXe.IdTrainRouteNavigation.PointStart  -  @veXe.IdTrainRouteNavigation.PointEnd</h4>
+                        <h4 class="highlight-location">@xeKhach.IdTrainNavigation.IdTrainRouteNavigation.PointStart  -  @xeKhach.IdTrainNavigation.IdTrainRouteNavigation.PointEnd</h4>
                     </div>
-                    <p style="margin:0px"><strong>Ngày khởi hành:</strong> @veXe.DateStart?.ToShortDateString()</p>
+                    <p style="margin:0px"><strong>Ngày khởi hành:</strong> @xeKhach.IdTrainNavigation.DateStart?.ToShortDateString()</p>
 
                     <p style="margin:0px; font-size:14px;">Mecsedec 45 chỗ</p>
                 </div>
@@ -96,11 +97,11 @@
             </div>
             <div class="ticket-actions" style="text-align:right;margin:0px">
 
-                <a href="@Url.Action("Index", "Order", new { idTrain = veXe.IdTrain })" class="btn btn-success" style="width:150px">Đặt vé</a>
-
+                <a href="@Url.Action("Index", "Order", new { idCoach = xeKhach.IdCoach })" class="btn btn-success" style="width:150px">Đặt vé</a>
             </div>
         </div>
     }
+
 
     <!-- Pagination -->
     @if (Model.PagingInfo.TotalPages > 1)

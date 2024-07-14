@@ -1,0 +1,49 @@
+﻿@model IEnumerable<DO_AN.Models.Train>
+
+@{
+    ViewData["Title"] = "Danh sách chuyến xe";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int i = 0;
+}
+
+
+
+<h1>Danh sách chuyến xe</h1>
+<p>
+    <a class="btn btn-primary" asp-action="Create">Tạo mới</a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Tên chuyến xe</th>
+                <th scope="col">Ngày khởi hành</th>
+                <th scope="col">Hệ số chuyến xe</th>
+                <th scope="col">Tuyến đường</th>
+                <th scope="col">Hành động</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        @{
+                            i = i + 1;
+                        } @i
+                    </th>
+                    <td>@Html.DisplayFor(modelItem => item.NameTrain)</td>
+                    <td>@Html.DisplayFor(modelItem => item.DateStart)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CoefficientTrain)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdTrainRouteNavigation.PointStart) - @Html.DisplayFor(modelItem => item.IdTrainRouteNavigation.PointEnd)</td>
+                    <td>
+                        <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.IdTrain">Sửa</a>
+                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdTrain">Xóa</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

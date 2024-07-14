@@ -12,8 +12,6 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 namespace DO_AN.Areas.Admin.Controllers
 {
     [Area("admin")]
-    [Route("admin")]
-    [Route("admin/homeadmin")]
     public class HomeAdminController : Controller
     {
         
@@ -44,39 +42,6 @@ namespace DO_AN.Areas.Admin.Controllers
             return View(lstVe);
         }
 
-
-        //[Route("themVeMoi")]
-        //[HttpGet]
-        //public IActionResult ThemVeMoi()
-        //{
-        //    ViewBag.IdSeat = new SelectList(_context.Seats.ToList(), "IdSeat", "NameSeat");
-        //    ViewBag.IdTrain = new SelectList(_context.Trains.ToList(), "IdTrain", "NameTrain");
-        //    return View();
-        //}
-
-        //[Route("themVeMoi")]
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> ThemVeMoi([Bind("IdTicket,Date,Price,IdSeat,IdTrain")] Ticket ticket)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(ticket);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    else
-        //    {
-        //        ViewBag.MessageFailed = "Failed";
-        //    }
-        //    ViewData["IdSeat"] = new SelectList(_context.Seats, "IdSeat", "NameSeat", ticket.IdSeat);
-        //    ViewData["IdTrain"] = new SelectList(_context.Trains, "IdTrain", "NameTrain", ticket.IdTrain);
-        //    return View(ticket);
-        //}
-
-
-
-        
         [HttpGet("{id}")]
         public async Task<IActionResult> SuaVe(int? id)
         {

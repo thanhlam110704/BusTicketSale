@@ -9,7 +9,7 @@ namespace DO_AN.Models
         public int IdOrder { get; set; }
         public int IdTicket { get; set; }
 
-        public virtual Order IdOrderNavigation { get; set; } = null!;
-        public virtual Ticket IdTicketNavigation { get; set; } = null!;
+        public virtual Order IdOrderNavigation { get; set; } 
+        public virtual Ticket IdTicketNavigation { get; set; } 
     }
 }

@@ -1,16 +1,13 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Proxies;
 
 
 namespace DO_AN.Models
 {
     public partial class DOANContext : DbContext
     {
-        public DOANContext()
-        {
-        }
-
         public DOANContext(DbContextOptions<DOANContext> options)
             : base(options)
         {
@@ -30,13 +27,30 @@ namespace DO_AN.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer("Data Source=LAPTOP-2S1N06EO;Initial Catalog=DOAN;Integrated Security=True");
-
-        } }
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure IdentityUserLogin<string>
+            modelBuilder.Entity<IdentityUserLogin<string>>(entity =>
+            {
+                entity.HasKey(e => new { e.LoginProvider, e.ProviderKey });
+                entity.ToTable("AspNetUserLogins"); // Specify the table name if needed
+            });
+
+            // Configure IdentityUserRole<string>
+            modelBuilder.Entity<IdentityUserRole<string>>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.RoleId });
+                entity.ToTable("AspNetUserRoles"); // Specify the table name if needed
+            });
+
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.HasKey(e => e.IdAccount);
@@ -137,7 +151,7 @@ namespace DO_AN.Models
                 entity.Property(e => e.IdOrder).HasColumnName("ID_Order");
 
                 entity.Property(e => e.DateOrder)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")  
                     .HasColumnName("Date_Order");
 
                 entity.Property(e => e.IdCus).HasColumnName("ID_Cus");
@@ -235,7 +249,7 @@ namespace DO_AN.Models
 
                 entity.Property(e => e.IdTicket).HasColumnName("ID_Ticket");
 
-                entity.Property(e => e.Date).HasColumnType("date");
+                entity.Property(e => e.Date).HasColumnType("datetime");
 
                 entity.Property(e => e.IdSeat).HasColumnName("ID_Seat");
 
@@ -267,7 +281,7 @@ namespace DO_AN.Models
                 entity.Property(e => e.CoefficientTrain).HasColumnType("decimal(14, 4)");
 
                 entity.Property(e => e.DateStart)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("Date_Start");
 
                 entity.Property(e => e.IdTrainRoute).HasColumnName("ID_TrainRoute");

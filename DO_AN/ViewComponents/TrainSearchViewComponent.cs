@@ -17,28 +17,29 @@ namespace DO_AN.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync(string noiDi, string noiDen, DateTime? ngayKhoiHanh, int page = 1, int pageSize = 2)
         {
-            var chuyenxeQuery = _context.Trains
-                .Include(t => t.IdTrainRouteNavigation).AsQueryable();
+            var xe = _context.Coaches
+                .Include(t => t.IdTrainNavigation)
+                .ThenInclude(t => t.IdTrainRouteNavigation)
+                .AsQueryable();
 
-            // Apply filters only when provided
             if (!string.IsNullOrEmpty(noiDi))
             {
-                chuyenxeQuery = chuyenxeQuery.Where(v => v.IdTrainRouteNavigation.PointStart.Contains(noiDi));
+                xe = xe.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.PointStart.Contains(noiDi));
             }
             if (!string.IsNullOrEmpty(noiDen))
             {
-                chuyenxeQuery = chuyenxeQuery.Where(v => v.IdTrainRouteNavigation.PointEnd.Contains(noiDen));
+                xe = xe.Where(v => v.IdTrainNavigation.IdTrainRouteNavigation.PointEnd.Contains(noiDen));
             }
             if (ngayKhoiHanh.HasValue)
             {
                 var date = ngayKhoiHanh.Value.Date;
-                chuyenxeQuery = chuyenxeQuery.Where(v => v.DateStart.HasValue && v.DateStart.Value.Date == date);
+                xe = xe.Where(v => v.IdTrainNavigation.DateStart.HasValue && v.IdTrainNavigation.DateStart.Value.Date == date);
             }
 
-            int totalItem = await chuyenxeQuery.CountAsync();
+            int totalItem = await xe.CountAsync();
             int totalPages = (int)Math.Ceiling(totalItem / (double)pageSize);
 
-            var pagedTickets = await chuyenxeQuery
+            var pagedTickets = await xe
                 .OrderBy(v => v.IdTrain)
                 .Skip((page - 1) * pageSize)
                 .Take(pageSize)
@@ -46,7 +47,7 @@ namespace DO_AN.ViewComponents
 
             var viewModel = new TrainListViewModel
             {
-                Trains = pagedTickets,
+                coaches = pagedTickets,
                 PagingInfo = new PagingSearch
                 {
                     TotalItems = totalItem,
@@ -63,5 +64,6 @@ namespace DO_AN.ViewComponents
 
             return View("Default", viewModel); // Return the view component with its corresponding view
         }
+
     }
 }
