@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1 class="text-center my-4">Create New Coach</h1>
+<h1 class="text-center my-4">TẠO XE MỚI</h1>
 
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
@@ -13,37 +13,37 @@
             <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
             <div class="mb-3">
-                <label asp-for="NameCoach" class="form-label">Coach Name</label>
+                <label asp-for="NameCoach" class="form-label">Tên Xe</label>
                 <input asp-for="NameCoach" class="form-control" />
                 <span asp-validation-for="NameCoach" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="Category" class="form-label">Category</label>
+                <label asp-for="Category" class="form-label">Loại</label>
                 <input asp-for="Category" class="form-control" />
                 <span asp-validation-for="Category" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="SeatsQuantity" class="form-label">Seats Quantity</label>
+                <label asp-for="SeatsQuantity" class="form-label">Số Lượng Ghế</label>
                 <input asp-for="SeatsQuantity" class="form-control" />
                 <span asp-validation-for="SeatsQuantity" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="BasicPrice" class="form-label">Basic Price</label>
+                <label asp-for="BasicPrice" class="form-label">Giá Cơ Bản</label>
                 <input asp-for="BasicPrice" class="form-control" />
                 <span asp-validation-for="BasicPrice" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="IdTrain" class="form-label">Train</label>
+                <label asp-for="IdTrain" class="form-label">Chuyến Xe</label>
                 <select asp-for="IdTrain" class="form-select" asp-items="ViewBag.IdTrain"></select>
             </div>
 
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <a class="btn btn-secondary" href="@Url.Action("Index", "Coaches", new { area = "Admin" })">Back to List</a>
+                <button type="submit" class="btn btn-primary">Tạo Mới</button>
+                <a class="btn btn-secondary" href="@Url.Action("Index", "Coaches", new { area = "Admin" })">Quay Lại</a>
 
             </div>
         </form>

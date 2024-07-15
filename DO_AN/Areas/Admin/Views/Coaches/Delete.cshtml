@@ -5,41 +5,41 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1 class="text-center my-4">Delete Coach</h1>
+<h1 class="text-center my-4">XÓA XE</h1>
 
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
-        <h3>Are you sure you want to delete this Coach?</h3>
+        <h3>Bạn có chắc chắn muốn xóa xe này không?</h3>
         <div>
-            <h4>Coach Details</h4>
+            <h4>Chi Tiết Xe</h4>
             <hr />
             <dl class="row">
                 <dt class="col-sm-2">
-                    <strong>Name</strong>
+                    <strong>Tên Xe</strong>
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.NameCoach)
                 </dd>
                 <dt class="col-sm-2">
-                    <strong>Category</strong>
+                    <strong>Loại</strong>
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.Category)
                 </dd>
                 <dt class="col-sm-2">
-                    <strong>Seats Quantity</strong>
+                    <strong>Số Lượng Ghế</strong>
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.SeatsQuantity)
                 </dd>
                 <dt class="col-sm-2">
-                    <strong>Basic Price</strong>
+                    <strong>Giá Cơ Bản</strong>
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.BasicPrice)
                 </dd>
                 <dt class="col-sm-2">
-                    <strong>Train</strong>
+                    <strong>Chuyến Xe</strong>
                 </dt>
                 <dd class="col-sm-10">
                     @Html.DisplayFor(model => model.IdTrainNavigation.IdTrain)

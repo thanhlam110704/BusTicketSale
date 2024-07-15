@@ -13,20 +13,20 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="mb-3">
-                <label asp-for="PointStart" class="form-label">Start Point</label>
+                <label asp-for="PointStart" class="form-label">Điểm Đi</label>
                 <input asp-for="PointStart" class="form-control" />
                 <span asp-validation-for="PointStart" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label asp-for="PointEnd" class="form-label">End Point</label>
+                <label asp-for="PointEnd" class="form-label">Điểm Đến</label>
                 <input asp-for="PointEnd" class="form-control" />
                 <span asp-validation-for="PointEnd" class="text-danger"></span>
             </div>
 
             <div class="d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <a class="btn btn-secondary" href="@Url.Action("Index", "TrainRoutes", new { area = "Admin" })">Back to List</a>
+                <button type="submit" class="btn btn-primary">Tạo Mới</button>
+                <a class="btn btn-secondary" href="@Url.Action("Index", "TrainRoutes", new { area = "Admin" })">Quay Lại</a>
             </div>
         </form>
     </div>

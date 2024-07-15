@@ -5,26 +5,26 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1 class="text-center my-4">Delete Train</h1>
+<h1 class="text-center my-4">XÓA CHUYẾN XE</h1>
 
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
-        <h3>Are you sure you want to delete this train?</h3>
+        <h3>Bạn có chắc chắn muốn xóa chuyến xe này?</h3>
 
         <div>
             <h4>Train Details</h4>
             <hr />
             <dl class="row">
-                <dt class="col-sm-4">Train Name</dt>
+                <dt class="col-sm-4">Tên Chuyến Xe</dt>
                 <dd class="col-sm-8">@Html.DisplayFor(model => model.NameTrain)</dd>
 
-                <dt class="col-sm-4">Start Date</dt>
+                <dt class="col-sm-4">Ngày Khởi Hành</dt>
                 <dd class="col-sm-8">@Html.DisplayFor(model => model.DateStart)</dd>
 
-                <dt class="col-sm-4">Coefficient</dt>
+                <dt class="col-sm-4">Hệ Số Chuyến Xe</dt>
                 <dd class="col-sm-8">@Html.DisplayFor(model => model.CoefficientTrain)</dd>
 
-                <dt class="col-sm-4">Train Route ID</dt>
+                <dt class="col-sm-4">Tuyến Đường</dt>
                 <dd class="col-sm-8">@Html.DisplayFor(model => model.IdTrainRouteNavigation.IdTrainRoute)</dd>
             </dl>
         </div>
