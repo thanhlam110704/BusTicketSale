@@ -5,37 +5,37 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1 class="text-center my-4">Chi tiết Đơn hàng</h1>
+<h1 class="text-center my-4">CHI TIẾT ĐƠN HÀNG</h1>
 
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
-        <h4 class="card-title">Thông tin Đơn hàng</h4>
+        <h4 class="card-title">Thông Tin Đơn Hàng</h4>
         <hr />
         <dl class="row">
-            <dt class="col-sm-4">Đơn giá</dt>
+            <dt class="col-sm-4">Đơn Giá</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.UnitPrice)</dd>
 
-            <dt class="col-sm-4">Ngày Đặt hàng</dt>
+            <dt class="col-sm-4">Ngày Đặt Hàng</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.DateOrder)</dd>
 
             <dt class="col-sm-4">Mã Vé</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.IdTicket)</dd>
 
-            <dt class="col-sm-4">Tên Khách hàng</dt>
+            <dt class="col-sm-4">Tên Khách Hàng</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.NameCus)</dd>
 
-            <dt class="col-sm-4">Số điện thoại</dt>
+            <dt class="col-sm-4">Số Điện Thoại</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.Phone)</dd>
 
-            <dt class="col-sm-4">Mã Khách hàng</dt>
+            <dt class="col-sm-4">Mã Khách Hàng</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.IdCusNavigation.IdCus)</dd>
 
-            <dt class="col-sm-4">Mã Giảm giá</dt>
+            <dt class="col-sm-4">Mã Giảm Giá</dt>
             <dd class="col-sm-8">@Html.DisplayFor(model => model.IdDiscountNavigation.IdDiscount)</dd>
         </dl>
     </div>
 </div>
 
 <div class="text-center mt-4">
-    <a asp-action="Index" class="btn btn-secondary">Quay lại danh sách Đơn hàng</a>
+    <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
 </div>
