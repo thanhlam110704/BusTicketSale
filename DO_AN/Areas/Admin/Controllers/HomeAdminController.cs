@@ -21,7 +21,6 @@ namespace DO_AN.Areas.Admin.Controllers
             _context = context;
         }
 
-        [Route("")]
         [Route("index")]
         public IActionResult Index()
         {

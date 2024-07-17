@@ -39,8 +39,9 @@
                     <td>@Html.DisplayFor(modelItem => item.CoefficientTrain)</td>
                     <td>@Html.DisplayFor(modelItem => item.IdTrainRouteNavigation.PointStart) - @Html.DisplayFor(modelItem => item.IdTrainRouteNavigation.PointEnd)</td>
                     <td>
-                        <a class="btn btn-warning btn-sm" asp-action="Edit" asp-route-id="@item.IdTrain">Sửa</a>
-                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdTrain">Xóa</a>
+                        <a class="btn btn-warning btn-sm" asp-area="Admin" asp-controller="Trains" asp-action="Edit" asp-route-id="@item.IdTrain">Sửa</a>
+                        <a class="btn btn-danger btn-sm" asp-area="Admin" asp-controller="Trains" asp-action="Delete" asp-route-id="@item.IdTrain">Xóa</a>
+
                     </td>
                 </tr>
             }

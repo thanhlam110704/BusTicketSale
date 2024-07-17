@@ -40,8 +40,8 @@
                     <td>@Html.DisplayFor(modelItem => item.IdCusNavigation.IdCus)</td>
                     <td>Đã thanh toán</td>
                     <td>
-                        <a class="btn btn-primary btn-sm"  asp-action="Details" asp-route-id="@item.IdOrder">Chi tiết</a>
-                        <a class="btn btn-danger btn-sm" asp-action="Delete" asp-route-id="@item.IdOrder">Xóa</a>
+                        <a class="btn btn-primary btn-sm" asp-area="Admin" asp-controller="Orders" asp-action="Details" asp-route-id="@item.IdOrder">Chi tiết</a>
+                        <a class="btn btn-primary btn-sm" asp-area="Admin" asp-controller="Orders" asp-action="Delete" asp-route-id="@item.IdOrder">Xóa</a>
                     </td>
                 </tr>
             }

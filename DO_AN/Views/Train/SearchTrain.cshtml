@@ -162,7 +162,7 @@
 
 <div class="container row" style="margin-left:auto;margin-right:auto;width:924px;padding:0">
     @*   bộ lọc  *@
-    <div class="col-12 col-md-4" style="margin-top: 3rem; width: 300px; padding-left: 0;">
+    <div class="col-12 col-md-4" style="margin-top: 1rem; width: 300px; padding-left: 0;">
         <div id="route-fixed-left" class="position-relative">
             <div class="card mb-3">
                 <div class="card-header">
@@ -201,7 +201,7 @@
 
     @* danh sách vé component  *@
     <div class="col-12 col-md-8" style="padding-right:0px">
-        <div class="container mt-5" style="margin-top:3rem; padding-right:0px">
+        <div class="container mt-5" style="margin-top:1rem; padding-right:0px">
             <div class="row">
                 <div class="results-container">
                     @await Component.InvokeAsync("TrainSearch", new { noiDi = ViewBag.NoiDi, noiDen = ViewBag.NoiDen, ngayKhoiHanh = ViewBag.NgayKhoiHanh, page = ViewBag.Page })
@@ -233,7 +233,7 @@
                     });
                 });
             });
-
+                
             document.addEventListener("click", function (e) {
                 if (!input.contains(e.target) && !suggestions.contains(e.target)) {
                     suggestions.innerHTML = "";

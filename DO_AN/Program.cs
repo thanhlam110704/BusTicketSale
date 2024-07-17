@@ -1,5 +1,6 @@
 ﻿using DO_AN.Models;
 using DO_AN.Services;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.EntityFrameworkCore;
@@ -8,33 +9,27 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Add services 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddSession();
 builder.Services.AddSingleton<IVNPayService, VNPayService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 builder.Services.AddScoped<ReportService>();
+
 // Inject IConfiguration to access appsettings.json
 var configuration = builder.Configuration;
-
-//builder.Services.AddAuthentication()
-//    //.AddGoogle(googleOptions =>
-//    //{
-//    //    IConfigurationSection googleAuthNSection = configuration.GetSection("Authentication:Google");
-
-//    //    googleOptions.ClientId = googleAuthNSection["ClientId"];
-//    //    googleOptions.ClientSecret = googleAuthNSection["ClientSecret"];
-//    //    googleOptions.CallbackPath = "/dang-nhap-tu-google";
-//    //});
 
 builder.Services.AddDbContext<DOANContext>(opts =>
 {
     opts.UseSqlServer(configuration.GetConnectionString("DoAnConnection"));
 });
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<DOANContext>();
+builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = true;
+})
+.AddEntityFrameworkStores<DOANContext>();
 
 builder.Services.AddTransient<IEmailSender, EmailSender>();
 
@@ -62,11 +57,18 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "areas",
-        pattern: "{area:exists}/{controller=Sales}/{action=Sales}/{id?}");
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
 
     endpoints.MapControllerRoute(
         name: "default",
-        pattern: "{controller=Home}/{action=TrangChu}/{id?}");
+        pattern: "{controller=Home}/{action=TrangChu}/{id?}"
+    );
+
 });
+
+
+
+
 
 app.Run();

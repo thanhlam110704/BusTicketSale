@@ -98,7 +98,11 @@
                     @if (!string.IsNullOrEmpty(Email))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/AccountDt/Index" asp-route-id=@ID><span style="font-weight:300;color:#ffc107;text-decoration:none;text-align:center   "><strong style="font-weight:100;font-size:14px;color:#ffc107;text-decoration:none;text-align:center" >Hi,</strong> @Email </span></a>
+                            <a class="nav-link" asp-page="/AccountDt/Index" asp-route-id="@ID">
+                                <span style="font-weight:300;color:#ffc107;text-decoration:none;text-align:center;">
+                                    <strong style="font-weight:100;font-size:14px;color:#ffc107;text-decoration:none;text-align:center;">Hi,</strong> @Email
+                                </span>
+                            </a>
                         </li>
                     }
                     else

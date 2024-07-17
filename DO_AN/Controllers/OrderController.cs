@@ -39,6 +39,7 @@ namespace DO_AN.Controllers
                 return RedirectToAction("Login", "Access");
             }
             HttpContext.Session.SetInt32("idCoach", (int)idCoach);
+
             if (idCoach == null)
             {
                 return NotFound();
