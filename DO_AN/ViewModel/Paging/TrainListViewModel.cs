@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using DO_AN.Models; // Đổi namespace thành tên của bạn
+using DO_AN.Models; 
 
 namespace DO_AN.ViewModel.Paging
 {
@@ -11,8 +11,5 @@ namespace DO_AN.ViewModel.Paging
 
         public PagingSearch PagingInfo { get; set; } = new PagingSearch();
 
-
-        //public List<string> StartPoints {  get; set; }
-        //public List<string> EndPoints { get; set; }
     }
 }

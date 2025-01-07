@@ -7,9 +7,9 @@ using DO_AN.Models;
 
 public class ReportService
 {
-    private readonly DOANContext _context;
+    private readonly DOAN_BoSungContext _context;
 
-    public ReportService(DOANContext context)
+    public ReportService(DOAN_BoSungContext context)
     {
         _context = context;
     }

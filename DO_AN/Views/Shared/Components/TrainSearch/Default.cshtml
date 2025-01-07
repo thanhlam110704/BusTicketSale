@@ -83,17 +83,19 @@
         <div class="ticket" style="max-width:none">
             <div class="d-flex justify-content-between">
                 <div class="ticket-info">
-                    <h5>Vé số @xeKhach.IdCoach</h5>
+                    <h5>Chuyến số @xeKhach.IdCoach</h5>
                     <div class="d-flex justify-content-between">
                         <h4 class="highlight-location">@xeKhach.IdTrainNavigation.IdTrainRouteNavigation.PointStart  -  @xeKhach.IdTrainNavigation.IdTrainRouteNavigation.PointEnd</h4>
                     </div>
                     <p style="margin:0px"><strong>Ngày khởi hành:</strong> @xeKhach.IdTrainNavigation.DateStart?.ToShortDateString()</p>
+                    <p style="margin:0px; font-size:14px;">Tên xe: @xeKhach.Category</p>
+                </div>
+                <div class="ticket-price text-center" style="align-content:center">
+                    <h4 class="highlight-price">
+                        @string.Format("{0:#,0}", (decimal)xeKhach.BasicPrice * xeKhach.IdTrainNavigation.CoefficientTrain) vnđ
+                    </h4>
+                </div>
 
-                    <p style="margin:0px; font-size:14px;">Mecsedec 45 chỗ</p>
-                </div>
-                <div class="ticket-price" style="align-content:center">
-                    <h4 class="highlight-price">100000 VND</h4>
-                </div>
             </div>
             <div class="ticket-actions" style="text-align:right;margin:0px">
 

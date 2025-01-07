@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1 class="text-center my-4">XÓA DANH SÁCH TUYẾN ĐƯỜNG</h1>
+<h1 class="text-center my-4">XÓA THÔNG TIN TUYẾN ĐƯỜNG</h1>
 
 <div class="card mx-auto" style="max-width: 600px;">
     <div class="card-body">
@@ -24,8 +24,8 @@
         <form asp-action="Delete">
             <input type="hidden" asp-for="IdTrainRoute" />
             <div class="d-grid gap-2">
-                <input type="submit" value="Delete" class="btn btn-danger" />
-                <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
+                <input type="submit" value="Xóa" class="btn btn-danger" />
+                <a asp-action="ListTrainRoutes" class="btn btn-secondary">Quay Lại</a>
             </div>
         </form>
     </div>

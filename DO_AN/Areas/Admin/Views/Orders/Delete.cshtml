@@ -22,13 +22,7 @@
                 <strong>Ngày Đặt Hàng</strong>
             </dt>
             <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.DateOrder)
-            </dd>
-            <dt class="col-sm-4">
-                <strong>Mã Vé</strong>
-            </dt>
-            <dd class="col-sm-8">
-                @Html.DisplayFor(model => model.IdTicket)
+                @Html.DisplayFor(model => model.DateOrder);
             </dd>
             <dt class="col-sm-4">
                 <strong>Tên Khách Hàng</strong>
@@ -60,7 +54,7 @@
             <input type="hidden" asp-for="IdOrder" />
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                 <button type="submit" class="btn btn-danger">Xóa</button>
-                <a asp-action="Index" class="btn btn-secondary">Quay Lại</a>
+                <a asp-action="ListOrders" class="btn btn-secondary">Quay Lại</a>
             </div>
         </form>
     </div>

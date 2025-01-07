@@ -1,42 +1,36 @@
-﻿using Microsoft.AspNetCore.Identity.UI.Services;
-using Microsoft.Extensions.Configuration;
+﻿using DO_AN.Services;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
 
-public class EmailSender : IEmailSender
+
+public class EmailService : IEmailService
 {
-    private readonly IConfiguration _configuration;
+    private readonly string _fromEmail = "nhattan425@gmail.com";
+    private readonly string _fromPassword = "chyx hwob foaq bjyr"; // Use a more secure method for storing passwords
+    private readonly string _fromDisplayName = "Web Sales Ticket";
 
-    public EmailSender(IConfiguration configuration)
+    public async Task SendTicketEmailAsync(string toEmail, string subject, string ticketHtml)
     {
-        _configuration = configuration;
-    }
-
-    public Task SendEmailAsync(string email, string subject, string htmlMessage)
-    {
-        var smtpHost = _configuration["Smtp:Host"];
-        var smtpPort = int.Parse(_configuration["Smtp:Port"]);
-        var smtpUsername = _configuration["Smtp:Username"];
-        var smtpPassword = _configuration["Smtp:Password"];
-
-        using (var client = new SmtpClient(smtpHost, smtpPort))
+        var smtpClient = new SmtpClient
         {
-            client.UseDefaultCredentials = false;
-            client.Credentials = new NetworkCredential(smtpUsername, smtpPassword);
-            client.EnableSsl = true;
+            Host = "smtp.gmail.com",
+            Port = 587,
+            EnableSsl = true,
+            UseDefaultCredentials = false,
+            Credentials = new NetworkCredential(_fromEmail, _fromPassword)
+        };
 
-            var mailMessage = new MailMessage
-            {
-                From = new MailAddress(smtpUsername),
-                Subject = subject,
-                Body = htmlMessage,
-                IsBodyHtml = true
-            };
+        var fromAddress = new MailAddress(_fromEmail, _fromDisplayName);
+        var toAddress = new MailAddress(toEmail);
 
-            mailMessage.To.Add(email);
+        var mailMessage = new MailMessage(fromAddress, toAddress)
+        {
+            Subject = subject,
+            Body = ticketHtml,
+            IsBodyHtml = true
+        };
 
-            return client.SendMailAsync(mailMessage);
-        }
+        await smtpClient.SendMailAsync(mailMessage);
     }
 }

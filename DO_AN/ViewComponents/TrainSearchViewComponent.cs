@@ -8,9 +8,9 @@ namespace DO_AN.ViewComponents
 {
     public class TrainSearchViewComponent : ViewComponent
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public TrainSearchViewComponent(DOANContext context)
+        public TrainSearchViewComponent(DOAN_BoSungContext context)
         {
             _context = context;
         }
@@ -21,6 +21,7 @@ namespace DO_AN.ViewComponents
                 .Include(t => t.IdTrainNavigation)
                 .ThenInclude(t => t.IdTrainRouteNavigation)
                 .AsQueryable();
+
 
             if (!string.IsNullOrEmpty(noiDi))
             {

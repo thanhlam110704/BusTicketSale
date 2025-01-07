@@ -9,9 +9,9 @@ namespace DO_AN.ViewComponents
 {
     public class TrainFilterViewComponent : ViewComponent
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
          
-        public TrainFilterViewComponent(DOANContext context)
+        public TrainFilterViewComponent(DOAN_BoSungContext context)
         {
             _context = context;
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DO_AN.Models
 {
@@ -9,11 +10,9 @@ namespace DO_AN.Models
             Trains = new HashSet<Train>();
         }
 
-       
-
         public int IdTrainRoute { get; set; }
-        public string PointStart { get; set; }
-        public string PointEnd { get; set; }
+        public string? PointStart { get; set; }
+        public string? PointEnd { get; set; }
 
         public virtual ICollection<Train> Trains { get; set; }
     }

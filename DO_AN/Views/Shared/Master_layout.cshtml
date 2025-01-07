@@ -78,10 +78,9 @@
 </head>
 
 <body>
-
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" asp-action="TrangChu" asp-controller="Home">
                 <img src="~/public/icon-vxr-full-2-1@2x.png" alt="Logo">
             </a>
             <div class="collapse navbar-collapse justify-content-end nav-group" id="navbarNav">
@@ -98,11 +97,12 @@
                     @if (!string.IsNullOrEmpty(Email))
                     {
                         <li class="nav-item">
-                            <a class="nav-link" asp-page="/AccountDt/Index" asp-route-id="@ID">
+                            <a class="nav-link" asp-controller="CustomerAccount" asp-action="ManagerAccountCustomer" asp-route-id="@ID">
                                 <span style="font-weight:300;color:#ffc107;text-decoration:none;text-align:center;">
                                     <strong style="font-weight:100;font-size:14px;color:#ffc107;text-decoration:none;text-align:center;">Hi,</strong> @Email
                                 </span>
                             </a>
+
                         </li>
                     }
                     else

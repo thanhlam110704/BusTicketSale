@@ -15,8 +15,8 @@ namespace DO_AN.Areas.Admin.Controllers
     public class HomeAdminController : Controller
     {
         
-        private readonly DOANContext _context;
-        public HomeAdminController(DOANContext context)
+        private readonly DOAN_BoSungContext _context;
+        public HomeAdminController(DOAN_BoSungContext context)
         {
             _context = context;
         }
@@ -73,7 +73,7 @@ namespace DO_AN.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

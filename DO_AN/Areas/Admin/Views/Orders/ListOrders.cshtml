@@ -1,0 +1,122 @@
+﻿@using DO_AN.Areas.Admin.ViewModels
+@model PaginatedOrdersViewModel
+
+@{
+    ViewData["Title"] = "Quản lý hóa đơn";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+    int i = 0;
+}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+
+
+
+<h1>QUẢN LÝ HÓA ĐƠN</h1>
+<div style="width:100%; display:flex;justify-content: flex-end;">
+    <a style="margin: 10px;" asp-action="ExportOrdersToCsv" asp-controller="Orders" asp-area="Admin" class="btn btn-success">Xuất file CSV</a>
+</div>
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Đơn Giá</th>
+                <th scope="col">Ngày Đặt hàng</th>
+                <th scope="col">Tên Khách Hàng</th>
+                <th scope="col">Điện Thoại</th>
+                <th scope="col">Mã Khách Hàng</th>
+                <th scope="col">Thanh Toán</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Orders)
+            {
+                <tr data-bs-toggle="collapse" data-bs-target="#orderDetails-@item.IdOrder" aria-expanded="false" aria-controls="orderDetails-@item.IdOrder" class="clickable-row">
+                    <th scope="row">
+                        @{
+                            i = i + 1;
+                        } @i
+                    </th>
+                    <td>@Html.DisplayFor(modelItem => item.UnitPrice)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                    <td>@Html.DisplayFor(modelItem => item.NameCus)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Phone)</td>
+                    <td>@Html.DisplayFor(modelItem => item.IdCus)</td>
+                    <td>Đã thanh toán</td>
+                </tr>
+                <tr>
+                    <td colspan="7" class="p-0">
+                        <div id="orderDetails-@item.IdOrder" class="collapse">
+                            <table class="table table-bordered">
+                                <thead style="color: white;background: grey;">
+                                    <tr>
+                                        <th scope="col">Mã vé</th>
+                                        <th scope="col">Ngày đi</th>
+                                        <th scope="col">Tên chuyến</th>
+                                        <th scope="col">Hệ số chuyến</th>
+                                        <th scope="col">Điểm đi</th>
+                                        <th scope="col">Điểm đến</th>
+                                        <th scope="col">Tên ghế</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var ticket in item.Tickets)
+                                    {
+                                        <tr>
+                                            <td class="text-muted">@ticket.IdTicket</td>
+                                            <td>@ticket.DateStart?.ToString("dd/MM/yyyy")</td>
+                                            <td>@ticket.NameTrain</td>
+                                            <td>@ticket.CoefficientTrain</td>
+                                            <td>@ticket.PointStart</td>
+                                            <td>@ticket.PointEnd</td>
+                                            <td>@ticket.SeatName</td>
+                                        </tr>
+                                    }
+                                    @if (!item.Tickets.Any())
+                                    {
+                                        <tr>
+                                            <td colspan="7" class="text-center" style="color:red">Không có vé nào.</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+@* Phân trang*@
+<nav aria-label="Page navigation" style="display: flex;justify-content: center;" class="pageCustome">
+    <ul class="pagination">
+        @for (i = 1; i <= Model.TotalPages; i++)
+        {
+            <li class="page-item @(Model.CurrentPage == i ? "active" : "")">
+                <a class="page-link" href="@Url.Action("ListOrders", new { page = i })">@i</a>
+            </li>
+        }
+    </ul>
+</nav>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.clickable-row').on('click', function () {
+            var target = $(this).data('target');
+            var $target = $(target);
+
+            // Check if the target is currently visible
+            if ($target.hasClass('show')) {
+                // If it's visible, collapse it
+                $target.collapse('hide');
+            } else {
+                // If it's not visible, collapse all other sections and show the clicked one
+                $('.collapse').not(target).collapse('hide');
+                $target.collapse('show');
+            }
+        });
+    });
+</script>

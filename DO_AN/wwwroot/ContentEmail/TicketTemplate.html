@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bus Ticket</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* styles.css */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .ticket {
+            margin:20px;
+            width: 360px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .header h1 {
+                font-size: 22px;
+                margin: 0;
+                color: #333;
+            }
+
+        .content {
+            margin-bottom: 10px;
+            padding: 0 50px;
+        }
+
+        .route-title {
+            text-align: center;
+            margin: 5px;
+        }
+
+            .route-title .label {
+                color: #333;
+                font-size: 14px;
+                font-weight: 600;
+            }
+
+        .route-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .route-info .route {
+                color: #333;
+                font-size: 18px;
+                font-weight: 700;
+            }
+
+        .passenger, .datetime, .seat, .bus-number, .price {
+            margin-bottom: 10px;
+        }
+
+        .price {
+            text-align: center
+        }
+        .seat{
+            margin-right:40px
+        }
+        .seat-bus {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer {
+            font-size: 12px;
+            text-align: center;
+            border-top: 1px solid #ccc;
+            padding-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="tickets-list">
+            {{Tickets}}
+        </div>
+    </div>
+</body>
+</html>

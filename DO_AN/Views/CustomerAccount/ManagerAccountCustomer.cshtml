@@ -1,19 +1,14 @@
-﻿@page "{id:int}"
-@model DO_AN.Pages.AccountDt.IndexModel
-@using DO_AN.Models;
-
-
-
+﻿@model DO_AN.ViewModel.CustomerAccountViewModel
 @{
     Layout = "Master_layout";
 }
 
 
-@* <link rel="stylesheet" href="~/css/info.css" />
+<link rel="stylesheet" href="~/css/info.css" />
 <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <div style="min-height:100vh">
     <div class="container">
-        <div  style="margin-top:50px;justify-content:center;display:flex;gap:50px">
+        <div style="margin-top:50px;justify-content:center;display:flex;gap:50px">
             <div class="col-md-2 mb-4" style="margin-top:50px">
                 <div class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
@@ -23,7 +18,7 @@
                     <a href="#" class="list-group-item list-group-item-action">
                         <i class='bx bxs-key me-2'></i>
                         Đổi mật khẩu
-                    </a>    
+                    </a>
                     <a asp-action="Logout" asp-controller="Access" class="list-group-item list-group-item-action">
                         <img src="~/public/logout.svg" class="me-2" />
                         Đăng xuất
@@ -70,4 +65,4 @@
             </div>
         </div>
     </div>
-</div> *@
+</div>

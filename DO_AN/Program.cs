@@ -20,7 +20,7 @@ builder.Services.AddScoped<ReportService>();
 // Inject IConfiguration to access appsettings.json
 var configuration = builder.Configuration;
 
-builder.Services.AddDbContext<DOANContext>(opts =>
+builder.Services.AddDbContext<DOAN_BoSungContext>(opts =>
 {
     opts.UseSqlServer(configuration.GetConnectionString("DoAnConnection"));
 });
@@ -29,10 +29,8 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = true;
 })
-.AddEntityFrameworkStores<DOANContext>();
-
-builder.Services.AddTransient<IEmailSender, EmailSender>();
-
+.AddEntityFrameworkStores<DOAN_BoSungContext>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -57,12 +55,13 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "areas",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+        pattern: "{area:exists}/{controller=Sales}/{action=DailyRevenueChart}/{id?}"
     );
 
     endpoints.MapControllerRoute(
         name: "default",
         pattern: "{controller=Home}/{action=TrangChu}/{id?}"
+       
     );
 
 });

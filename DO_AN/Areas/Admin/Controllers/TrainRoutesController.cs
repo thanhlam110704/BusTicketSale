@@ -12,15 +12,15 @@ namespace DO_AN.Areas.Admin.Controllers
     [Area("Admin")]
     public class TrainRoutesController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public TrainRoutesController(DOANContext context)
+        public TrainRoutesController(DOAN_BoSungContext context)
         {
             _context = context;
         }
 
         // GET: Admin/TrainRoutes
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListTrainRoutes()
         {
               return _context.TrainRoutes != null ? 
                           View(await _context.TrainRoutes.ToListAsync()) :
@@ -58,11 +58,11 @@ namespace DO_AN.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdTrainRoute,PointStart,PointEnd")] TrainRoute trainRoute)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(trainRoute);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListTrainRoutes));
             }
             return View(trainRoute);
         }
@@ -113,7 +113,7 @@ namespace DO_AN.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListTrainRoutes));
             }
             return View(trainRoute);
         }
@@ -152,7 +152,7 @@ namespace DO_AN.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListTrainRoutes));
         }
 
         private bool TrainRouteExists(int id)

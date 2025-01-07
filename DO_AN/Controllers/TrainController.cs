@@ -9,9 +9,9 @@ namespace DO_AN.Controllers
     [ApiController]
     public class TrainController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public TrainController(DOANContext context)
+        public TrainController(DOAN_BoSungContext context)
         {
             _context = context;
         }

@@ -1,26 +1,44 @@
-﻿<!DOCTYPE html>
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <title>Biểu đồ doanh thu theo ngày trong tháng</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .container {
+            margin-top: 30px;
+        }
+
+        .chart-container {
+            width: 80%;
+            margin: 40px auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h2>Biểu đồ doanh thu theo ngày trong tháng</h2>
-
-        <form action="/Chart/DailyRevenueChart" method="get">
-            <div class="form-group">
-                <label for="year">Năm:</label>
-                <input type="number" id="year" name="year" value="2024" min="2000" max="2024" />
+        <h2 class="text-center">Doanh thu</h2>
+        <form asp-action="DailyRevenueChart" asp-area="Admin" asp-controller="Sales" method="get" class="row g-3 justify-content-center">
+            <div class="col-md-3">
+                <label for="year" class="form-label">Năm:</label>
+                <input type="number" id="year" name="year" class="form-control" value="@Model.Year" min="2000" max="2024" />
             </div>
-            <div class="form-group">
-                <label for="month">Tháng:</label>
-                <input type="number" id="month" name="month" value="7" min="1" max="12" />
+            <div class="col-md-3">
+                <label for="month" class="form-label">Tháng:</label>
+                <input type="number" id="month" name="month" class="form-control" value="@Model.Month" min="1" max="12" />
             </div>
-            <button type="submit" class="btn btn-primary">Xem biểu đồ</button>
+            <div class="col-md-2 align-self-end">
+                <button type="submit" class="btn btn-primary w-100">Xem biểu đồ</button>
+            </div>
         </form>
-
-        <div style="width: 80%; margin: auto; margin-top: 20px;">
+        <div class="chart-container">
             <canvas id="dailyRevenueChart"></canvas>
         </div>
     </div>

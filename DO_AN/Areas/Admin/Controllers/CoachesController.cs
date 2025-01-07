@@ -12,15 +12,15 @@ namespace DO_AN.Areas.Admin.Controllers
     [Area("Admin")]
     public class CoachesController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public CoachesController(DOANContext context)
+        public CoachesController(DOAN_BoSungContext context)
         {
             _context = context;
         }
 
         // GET: Admin/Coaches
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListCoaches()
         {
             var dOANContext = _context.Coaches.Include(c => c.IdTrainNavigation);
             return View(await dOANContext.ToListAsync());
@@ -59,11 +59,11 @@ namespace DO_AN.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCoach,NameCoach,Category,SeatsQuantity,BasicPrice,IdTrain")] Coach coach)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(coach);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListCoaches));
             }
             ViewData["IdTrain"] = new SelectList(_context.Trains, "IdTrain", "IdTrain", coach.IdTrain);
             return View(coach);
@@ -116,7 +116,7 @@ namespace DO_AN.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListCoaches));
             }
             ViewData["IdTrain"] = new SelectList(_context.Trains, "IdTrain", "IdTrain", coach.IdTrain);
             return View(coach);
@@ -157,7 +157,7 @@ namespace DO_AN.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListCoaches));
         }
 
         private bool CoachExists(int id)

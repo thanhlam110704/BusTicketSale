@@ -8,10 +8,10 @@ namespace DO_AN.Controllers
     
     public class HomeController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
        
 
-        public HomeController(DOANContext context)
+        public HomeController(DOAN_BoSungContext context)
         {
             _context = context;
         }

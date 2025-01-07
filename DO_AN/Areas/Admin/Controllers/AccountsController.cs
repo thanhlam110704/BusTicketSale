@@ -12,16 +12,16 @@ namespace DO_AN.Areas.Admin.Controllers
     [Area("Admin")]
     public class AccountsController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public AccountsController(DOANContext context)
+        public AccountsController(DOAN_BoSungContext context)
         {
             _context = context;
         }
 
         // GET: Admin/Accounts
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListAccounts()
         {
             var dOANContext = _context.Accounts.Include(a => a.IdRoleNavigation);
             return View(await dOANContext.ToListAsync());
@@ -60,11 +60,11 @@ namespace DO_AN.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdAccount,Phone,Email,Password,Sex,DateOfBirth,IdRole")] Account account)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                _context.Add(account);
+                _context.Add(account);  
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListAccounts));
             }
             ViewData["IdRole"] = new SelectList(_context.Roles, "IdRole", "IdRole", account.IdRole);
             return View(account);
@@ -99,7 +99,7 @@ namespace DO_AN.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -117,7 +117,7 @@ namespace DO_AN.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListAccounts));
             }
             ViewData["IdRole"] = new SelectList(_context.Roles, "IdRole", "IdRole", account.IdRole);
             return View(account);
@@ -158,7 +158,7 @@ namespace DO_AN.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListAccounts));
         }
 
         private bool AccountExists(int id)

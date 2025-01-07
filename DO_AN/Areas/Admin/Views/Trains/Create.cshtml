@@ -7,7 +7,7 @@
 
 <h1>TẠO MỚI CHUYẾN XE</h1>
 
-<div class="card">
+<div class="card mx-auto" style="width:500px">
     <div class="card-body">
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -40,7 +40,7 @@
 
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Tạo Mới</button>
-                <a class="btn btn-secondary" href="@Url.Action("Index", "Trains", new { area = "Admin" })">Quay Lại</a>
+                <a class="btn btn-secondary" href="@Url.Action("ListTrains", "Trains", new { area = "Admin" })">Quay Lại</a>
             </div>
         </form>
     </div>

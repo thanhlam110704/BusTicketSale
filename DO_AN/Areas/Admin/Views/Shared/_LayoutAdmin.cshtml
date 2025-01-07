@@ -22,7 +22,7 @@
             color: #333; /* Màu chữ nổi bật */
         }
 
-    
+
 
         .bx {
             color: #333;
@@ -46,7 +46,7 @@
                 </button>
                 <div class="search-field d-none d-md-block">
                     <form class="d-flex align-items-center h-100" action="#">
-                        <div class="input-group">
+                        <div class="input-group" style="align-items: center">
                             <div class="input-group-prepend bg-transparent">
                                 <i class="input-group-text border-0 mdi mdi-magnify"></i>
                             </div>
@@ -83,7 +83,7 @@
                     </li>
                     <!--    logout      -->
                     <li class="nav-item nav-logout d-none d-lg-block">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" asp-action="Logout" asp-controller="Access" asp-area="">
                             <i class="mdi mdi-power"></i>
                         </a>
                     </li>
@@ -91,7 +91,7 @@
             </div>
         </nav>
         <!-- partial -->
-        <div class="container-fluid page-body-wrapper">
+        <div class="container-fluid page-body-wrapper" style="padding-right: 0;padding-left: 0;">
             <!-- partial:../../partials/_sidebar.html -->
             <nav class="sidebar sidebar-offcanvas" id="sidebar">
                 <ul class="nav">
@@ -107,43 +107,44 @@
                             </div>
                         </a>
                     </li>
-                    <li class="nav-item @(currentAction == "Sales" && currentController == "Sales" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Sales", "Sales", new { area = "Admin" })">
+                    <li class="nav-item @(currentAction == "DailyRevenueChart" && currentController == "Sales" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("DailyRevenueChart", "Sales", new { area = "Admin" })">
                             <i class='bx bxs-dashboard'></i>
                             <span class="menu-title">Dashboard</span>
                         </a>
+
                     </li>
-                    <li class="nav-item @(currentAction == "Index" && currentController == "Orders" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Index", "Orders", new { area = "Admin" })">
+                    <li class="nav-item @(currentAction == "ListOrders" && currentController == "Orders" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("ListOrders", "Orders", new { area = "Admin" })">
                             <i class='bx bxs-notepad'></i>
                             <span class="menu-title">Quản lý hóa đơn</span>
                         </a>
                     </li>
-                    <li class="nav-item @(currentAction == "Index" && currentController == "Trains" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Index", "Trains", new { area = "Admin" })">
+                    <li class="nav-item @(currentAction == "ListTrains" && currentController == "Trains" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("ListTrains", "Trains", new { area = "Admin" })">
                             <i class='bx bxs-map-alt'></i>   <span class="menu-title">Quản lý chuyến xe</span>
 
                         </a>
                     </li>
-                    <li class="nav-item @(currentAction == "Index" && currentController == "TrainRoutes" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Index", "TrainRoutes", new { area = "Admin" })">
+                    <li class="nav-item @(currentAction == "ListTrainRoutes" && currentController == "TrainRoutes" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("ListTrainRoutes", "TrainRoutes", new { area = "Admin" })">
                             <i class='bx bxs-map'></i>   <span class="menu-title">Quản lý tuyến đường</span>
 
                         </a>
                     </li>
-                    <li class="nav-item @(currentAction == "Index" && currentController == "Coaches" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Index", "Coaches", new { area = "Admin" })">
+                    <li class="nav-item @(currentAction == "ListCoaches" && currentController == "Coaches" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("ListCoaches", "Coaches", new { area = "Admin" })">
                             <i class='bx bxs-bus'></i>    <span class="menu-title">Quản lý xe</span>
 
                         </a>
                     </li>
-                    <li class="nav-item @(currentAction == "Index" && currentController == "Accounts" ? "active" : "")">
-                        <a class="nav-link" href="@Url.Action("Index", "Accounts", new { area = "Admin" })">
+                    <li class="nav-item @(currentAction == "ListAccounts" && currentController == "Accounts" ? "active" : "")">
+                        <a class="nav-link" href="@Url.Action("ListAccounts", "Accounts", new { area = "Admin" })">
                             <i class='bx bxs-user-circle'></i>   <span class="menu-title">Quản lý tài khoản</span>
 
                         </a>
                     </li>
-                   
+
                 </ul>
             </nav>
             <!-- partial -->

@@ -259,7 +259,7 @@
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email để nhận thông tin đặt chỗ <span>*</span></label>
-                                <input type="email" class="form-control" id="email" name="Email" required>
+                                <input type="email" class="form-control" id="email" name="Email" value="@Email" readonly>
                             </div>
                             <div class="alert alert-info mt-3" role="alert">
                                 Số điện thoại và email được sử dụng để gửi thông tin đơn hàng và liên hệ khi cần thiết.
@@ -269,7 +269,7 @@
                             <input type="hidden" id="total-price-input" name="TotalPrice">
 
                             <!-- Nút đặt vé -->
-                            <button type="button" onclick="submitBooking()" class="btn btn-primary" style="width: 100%; height: 45px;">
+                            <button type="button" onclick="submitBooking()" class="btn btn-primary" style="width: 100%;color:white;height: 45px;">
                                 Đặt vé
                             </button>
                         </form>
@@ -311,7 +311,7 @@
                             <p class="mb-0 ms-2">@Model.Train.NameTrain</p>
                         </div>
 
-                        <p><strong>Loại xe:</strong> @Model.VehicleType</p>
+                        <p><strong>Tên xe:</strong> @Model.VehicleType</p>
 
                         <div class="selected-seats mt-3" id="selected-seats">
                             <!-- Selected seats will be displayed here -->
@@ -334,13 +334,13 @@
         const occupiedSeats = @Html.Raw(Json.Serialize(Model.OccupiedSeats.Select(s => s.NameSeat).ToList()));
         const ticketPrice = @Model.Price;
 
-        function createSeat(nameSeat, label) {
+        function createSeat(label) {
             const seat = document.createElement('div');
             seat.classList.add('seat');
-            if (occupiedSeats.includes(nameSeat)) {
+            if (occupiedSeats.includes(label)) {
                 seat.classList.add('occupied');
             }
-            seat.id = nameSeat;
+            seat.id = label;
             seat.innerText = label;
             seat.addEventListener('mousedown', (event) => {
                 event.preventDefault();
@@ -366,16 +366,16 @@
 
                         if (col === 1) {
                             seatLabel = String.fromCharCode(65) + row;
-                            count += 1;
-                            nameSeat = `Seat ${count}`;
+                            // count += 1;
+                            // nameSeat = `A${count}`;
                         }
 
                         if (col === 3) {
                             seatLabel = String.fromCharCode(66) + row;
-                            count += 1;
-                            nameSeat = `Seat ${count}`;
+                            // count += 1;
+                            // nameSeat = `A${count}`;
                         }
-                        const seat = createSeat(nameSeat, seatLabel);
+                        const seat = createSeat(seatLabel);
                         seatColumn.appendChild(seat);
                     }
                 }
@@ -384,15 +384,15 @@
                         let seatLabel, nameSeat;
                         if (col === 2) {
                             seatLabel = String.fromCharCode(65) + row;
-                            count += 1;
-                            nameSeat = `Seat ${count}`;
+                            // count += 1;
+                            // nameSeat = `Seat ${count}`;
                         }
                         if (col === 4) {
                             seatLabel = String.fromCharCode(66) + row;
-                            count += 1;
-                            nameSeat = `Seat ${count}`;
+                            // count += 1;
+                            // nameSeat = `Seat ${count}`;
                         }
-                        const seat = createSeat(nameSeat, seatLabel);
+                        const seat = createSeat(seatLabel);
                         seatColumn.appendChild(seat);
                     }
                 }

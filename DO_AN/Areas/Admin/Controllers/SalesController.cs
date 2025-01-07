@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using DO_AN.Models;
-using DO_AN.Areas.Admin.ViewModels;
-using DO_AN.Areas.Admin.Models;
 using Newtonsoft.Json;
 
 namespace DO_AN.Areas.Admin.Controllers
@@ -14,51 +13,15 @@ namespace DO_AN.Areas.Admin.Controllers
     [Area("Admin")]
     public class SalesController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public SalesController(DOANContext context)
+        public SalesController(DOAN_BoSungContext context)
         {
             _context = context;
         }
-
-        public IActionResult RevenueChart()
-        {
-            var inputYear = 2024;
-            // Truy vấn dữ liệu doanh thu từ bảng Order (ví dụ tính tổng doanh thu theo tháng)
-            var revenueData = _context.Orders
-                                .Where(o => o.DateOrder != null && o.DateOrder.Value.Year == inputYear)
-                                .GroupBy(o => o.DateOrder.Value.Month)
-                                .Select(g => new { Month = g.Key, TotalRevenue = g.Sum(o => o.UnitPrice) })
-                                .ToList();
-
-
-            // Chuẩn bị dữ liệu cho biểu đồ (ví dụ, chuyển sang định dạng JSON)
-            var labels = revenueData.Select(r => $"Tháng {r.Month}");
-            var revenueValues = revenueData.Select(r => r.TotalRevenue);
-
-            var chartData = new
-            {
-                labels = labels,
-                datasets = new[]
-                {
-                new
-                {
-                    label = "Doanh thu",
-                    data = revenueValues,
-                    backgroundColor = "rgba(54, 162, 235, 0.2)",
-                    borderColor = "rgba(54, 162, 235, 1)",
-                    borderWidth = 1
-                }
-            }
-            };
-
-            ViewData["ChartData"] = JsonConvert.SerializeObject(chartData); // Truyền dữ liệu biểu đồ sang view
-
-            return View();
-        }
-
-
-        public IActionResult DailyRevenueChart(int year, int month)
+        [HttpGet]
+        [Route("Admin/Sales/DailyRevenueChart")]
+        public async Task<IActionResult> DailyRevenueChart(int year, int month)
         {
             if (year == 0 || month == 0)
             {
@@ -106,38 +69,13 @@ namespace DO_AN.Areas.Admin.Controllers
                 Labels = labels,
                 RevenueValues = revenueValues
             };
-
             ViewData["DailyChartData"] = JsonConvert.SerializeObject(chartData);
-
-            return View();
-        }
-
-        public IActionResult PopularTravelTimes(DateTime? selectedDate)
-        {
-            // Nếu ngày không được chọn, mặc định là ngày hiện tại
-            var date = selectedDate ?? DateTime.Today;
-
-            var travelTimes = _context.Tickets
-                .Where(t => t.Date.Value.Date == date.Date) // Lọc theo ngày được chọn
-                .GroupBy(t => t.Date.Value.Hour) // Nhóm theo giờ của ngày khởi hành
-                .Select(g => new
-                {
-                    Hour = g.Key,
-                    Count = g.Count()
-                })
-                .OrderByDescending(g => g.Count) // Sắp xếp giảm dần theo số lượng vé
-                .ToList();
-
-            string[] labels = travelTimes.Select(t => t.Hour.ToString()).ToArray();
-            int[] data = travelTimes.Select(t => t.Count).ToArray();
-
-            var chartData = new { labels, data };
-
-            ViewData["PopularTravelTimesData"] = JsonConvert.SerializeObject(chartData);
-
-            ViewData["SelectedDate"] = date.ToString("dd-MM-yyyy");
-
-            return View();
+            var date = new
+            {
+                Month = month,
+                Year = year
+            };
+            return View(date);
         }
 
 

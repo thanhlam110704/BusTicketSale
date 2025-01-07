@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DO_AN.Migrations
 {
-    [DbContext(typeof(DOANContext))]
+    [DbContext(typeof(DOAN_BoSungContext))]
     partial class DOANContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

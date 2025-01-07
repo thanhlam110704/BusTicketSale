@@ -10,7 +10,7 @@
         z-index: 1000;
         width: 226px; /* Để gợi ý chiếm full width ô nhập, trừ đi viền 1px từ hai bên */
         background: #fff;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         border-radius: 5px; /* Bo tròn gợi ý */
         /* margin-top: 5px; */ /* Khoảng cách với ô nhập */
     }
@@ -149,7 +149,7 @@
                         <input type="date" style="margin-bottom:5px" class="form-control" name="ngayKhoiHanh" placeholder="Ngày khởi hành" value="@ViewBag.NgayKhoiHanh?.ToString("yyyy-MM-dd")" autocomplete="off">
                     </div>
                     <div>
-                        <button type="submit" style="margin-bottom:5px; margin-top:0px" class="btn btn-primary">Tìm kiếm</button>
+                        <button type="submit" style="margin-bottom:5px; color: black;margin-top:0px" class="btn btn-primary">Tìm kiếm</button>
                     </div>
                 </div>
             </form>
@@ -211,7 +211,6 @@
     </div>
 </div>
 
-
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const createAutocomplete = (inputId, suggestionsId, apiEndpoint) => {
@@ -233,7 +232,6 @@
                     });
                 });
             });
-                
             document.addEventListener("click", function (e) {
                 if (!input.contains(e.target) && !suggestions.contains(e.target)) {
                     suggestions.innerHTML = "";
@@ -253,7 +251,6 @@
             alert('Vui lòng nhập ít nhất một trong các trường Nơi đi hoặc Nơi đến');
             return false;
         }
-
         return true;
     }
 </script>

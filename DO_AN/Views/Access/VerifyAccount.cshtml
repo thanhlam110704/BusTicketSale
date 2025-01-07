@@ -1,0 +1,92 @@
+﻿@{
+    Layout = "_LayoutAccount";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>BusTicketSales &mdash; Project</title>
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+    <link rel="stylesheet" href="~/Content/wwwroot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/wwwroot/css/style.css">
+    <style>
+        body {
+            font-family: 'Rubik', sans-serif;
+            background-color: #f8f9fa;
+            color: #343a40;
+        }
+
+        .site-section {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 600px;
+            text-align: center;
+            padding: 20px;
+            border-radius: 8px;
+            background: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .display-3 {
+            font-family: 'Crimson Text', serif;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .btn-md {
+            font-family: 'Rubik', sans-serif;
+            background: #ffc107;
+            border-color: #ffc107;
+            color: #ffffff;
+            border-radius: 50px;
+            padding: 10px 20px;
+            transition: all 0.3s ease;
+        }
+
+            .btn-md:hover,
+            .btn-md:focus,
+            .btn-md:active {
+                background-color: #ffffff;
+                color: #ffc107;
+                border-color: #ffc107;
+                box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.2);
+            }
+
+        .text-success {
+            color: #28a745;
+        }
+
+        .text-danger {
+            color: #dc3545;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="site-section">
+        <div class="container">
+            <h2 class="display-3 @((ViewBag.Success) ? "text-success" : "text-danger")">@ViewBag.Message</h2>
+            <p class="lead mb-4">
+                @if (ViewBag.Success)
+                {
+                <p><a asp-action="Login" asp-controller="Access" class="btn btn-md" style="text-decoration:none">Đăng nhập ngay</a></p>
+                }
+                else
+                {
+                <p><a asp-action="Register" asp-controller="Access" class="btn btn-md" style="text-decoration:none">Thử lại</a></p>
+                }
+            </p>
+        </div>
+    </div>
+</body>
+
+</html>

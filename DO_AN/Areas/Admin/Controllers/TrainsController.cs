@@ -12,15 +12,14 @@ namespace DO_AN.Areas.Admin.Controllers
     [Area("Admin")]
     public class TrainsController : Controller
     {
-        private readonly DOANContext _context;
+        private readonly DOAN_BoSungContext _context;
 
-        public TrainsController(DOANContext context)
+        public TrainsController(DOAN_BoSungContext context)
         {
             _context = context;
         }
-
         // GET: Admin/Trains
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ListTrains()
         {
             var dOANContext = _context.Trains.Include(t => t.IdTrainRouteNavigation);
             return View(await dOANContext.ToListAsync());
@@ -59,11 +58,11 @@ namespace DO_AN.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdTrain,NameTrain,DateStart,IdTrainRoute,CoefficientTrain")] Train train)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(train);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListTrains));
             }
             ViewData["IdTrainRoute"] = new SelectList(_context.TrainRoutes, "IdTrainRoute", "IdTrainRoute", train.IdTrainRoute);
             return View(train);
@@ -98,7 +97,7 @@ namespace DO_AN.Areas.Admin.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -116,7 +115,7 @@ namespace DO_AN.Areas.Admin.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ListTrains));
             }
             ViewData["IdTrainRoute"] = new SelectList(_context.TrainRoutes, "IdTrainRoute", "IdTrainRoute", train.IdTrainRoute);
             return View(train);
@@ -157,7 +156,7 @@ namespace DO_AN.Areas.Admin.Controllers
             }
             
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(ListTrains));
         }
 
         private bool TrainExists(int id)
